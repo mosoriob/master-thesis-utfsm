@@ -5,12 +5,15 @@
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\file}[1]{\texttt{\bfseries#1}}
 \newcommand{\option}[1]{\texttt{\itshape#1}}
-\improvement{cita} 
-Investigadores han argumentado sobre la importancia de poder reproducir experimentos científicos debido a la necesidad de corroborar los resultados o de contribuir en el mismo trabajo.   \todo[inline]{dónde? cita}
-Sin embargo, el proceso de reproducibilidad puede ser tan complejo y costoso que ha sido referido como una tarea del tipo forense \cite{baggerly2009deriving}.
-De hecho, estudios controversiales y escándalos han expuesto la necesidad de mejorar los procesos de reproducibilidad de las investigaciones. Algunos ejemplos son: casos clínicos \cite{ioannidis2009repeatability}, sondeos del área de psicología \cite{open2015estimating} o estudios en área de la computación \cite{baggerly2009deriving}.\todo[inline]{utilizas frases muy cortas, esto no es inglés}
 La reproducibilidad del experimento es la capacidad de volver a ejecutar un experimento con o sin la introducción de cambios en él y la obtención de resultados que sean consistentes con los originales.
-La introducción de cambios permite evaluar diferentes características de ese experimento ya que los investigadores pueden modificarlo gradualmente, mejorando y re-orientando los métodos y condiciones experimentales~\cite{stodden2010reproducible}.\todo[inline]{esto tiene que ir al principio de la sección, empiezas hablando de reproducibilidad sin decir lo que es.}
+La introducción de cambios permite evaluar diferentes características de ese experimento ya que los investigadores pueden modificarlo gradualmente, mejorando y re-orientando los métodos y condiciones experimentales~\cite{stodden2010reproducible}.
+Investigadores han argumentado sobre la importancia de poder reproducir experimentos científicos debido a la necesidad de corroborar los resultados o de contribuir en el mismo trabajo.
+Sin embargo, el proceso de reproducibilidad puede ser tan complejo y costoso que ha sido referido como una tarea del tipo forense \cite{baggerly2009deriving}.
+De hecho, estudios controversiales y escándalos han expuesto la necesidad de mejorar los procesos de reproducibilidad de las investigaciones. 
+Algunos ejemplos son: \cite{ioannidis2009repeatability} donde se estudiar la reproducibilidad en el área biología afirmando que en múltiples estudios del área no todos los datos están disponibles públicamente, e incluso cuando están disponibles, se desconoce si los resultados publicados son reproducibles, 
+sondeos del área de psicología  \cite{open2015estimating} 
+o estudios en área de la computación \cite{baggerly2009deriving}.
+
 Para permitir la reproducibilidad del experimento es necesario proporcionar suficiente información sobre él mismo, permitiendo comprenderlo, evaluarlo y volver a construirlo. 
 Normalmente, los experimentos se describen en flujos de trabajo científicos o \emph{workflows} (representaciones que permiten gestionar cálculos a gran escala) que puede ser ejecutados en sistemas informáticos distribuidos.
 %Aparece el problema de la conservación de los experimentos
@@ -24,8 +27,7 @@ Existe enfoques que se han enfocado en conservar el ambiente computacional de un
 Los autores en~\cite{santana2017reproducibility} identificaron dos enfoques para conservar el ambiente computacional de un experimento científico: la conservación física, en la que los objetos de investigación dentro del experimento se conservan en un entorno virtual (e.g., máquinas virtuales); y la conservación lógica, en la que se describen las principales capacidades de los recursos del ambiente computacional utilizando vocabularios semánticos para que el investigador pueda reproducir un entorno equivalente.
 Para ello, definieron un proceso para documentar la aplicación de workflow, su sistema de gestión relacionado y las dependencias de ambos.
 Sin embargo, este proceso es manual, dejando un trabajo complejo para los científicos. 
-Además, al igual que la mayoría de los trabajos dejan fuera del alcance la conservación física del entorno computacional del workflow debido a los costos de infraestructura que mantenga los datos, restricciones políticas de las organizaciones a cargo y procesos de decaimiento.\todo[inline]{no se entiende esta frase}
-Sin embargo, la conservación física simplifica la ejecución del experimento a cargo de nuevo investigador. Dado que evita el proceso de reconstrucción del ambiente que es una tarea compleja.
+Por otro lado, los autores no enfrentan la conservación física del entorno computacional argumentando que los costos necesarios para almacenar los ambientes computacionales son muy altos, la existencia de dificultades dado a las restricciones políticas de las organizaciones a cargo ó procesos de decaimiento del ambiente computacional en el tiempo. Sin embargo, la conservación física simplifica la ejecución del experimento a cargo de nuevo investigador. Dado que evita el proceso de reconstrucción del ambiente que es una tarea compleja.
 El problema de reproducibilidad no sólo sucede en la comunidad científica. Compañías tecnológicas también enfrenta problemas similares cuando ellos desean distribuir cualquier producto de software a múltiples servidores o plataformas.
 Para resolver esto, las compañías utilizan la virtualización. Esta tecnología se refiere a una característica del Sistema Operativo (SO) en la que el kernel del SO permite la existencia de múltiples instancias aisladas de espacio de usuario llamadas máquinas virtuales o contenedores.
 Una de las tecnologías de virtualización más populares en la industria es Docker\footnote{\url{https://www.docker.com/}}, que implementa la virtualización de software mediante la creación de versiones mínimas de un sistema operativo base (un contenedor).
