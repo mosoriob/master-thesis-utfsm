@@ -76,9 +76,10 @@ En el enfoque de describir los recursos computacionales, los autores en \cite{sa
 Para ello, definieron un proceso para documentar la aplicación del workflow y su sistema de gestión relacionado, así como sus dependencias.
 Además, los autores propusieron \textit{The Workflow Infrastructure Conservation Using Semantics ontology} (WICUS). WICUS es una red de ontologías OWL2 (Web Ontology Language)~\cite{motik2009owl} que implementan la conceptualización de los principales dominios de una infraestructura computacional. Como: Hardware, Software, Workflow y Recursos Informáticos. 
 Los autores argumentan su importancia de su trabajo debido que a que los workflows científicos requieren un conjunto de componentes de software, y los investigadores deben saber cómo desplegar esta pila de software para lograr un entorno equivalente.
-Sin embargo, este proceso se realiza de forma de manual, dejando mucho trabajo a los científicos.
-Además, los autores afirman que la conservación de los ambientes computacionales comúnmente se logra utilizando un enfoque físico dado que la conservación física permite compartir fácilmente un ambiente computacional con otros investigadores y ellos pueden reproducir el experimento utilizando en el mismo ambiente. \todo[inline]{,mejorar escritura, frase muy larga}
-Sin embargo, los esfuerzos necesarios para mantener la infraestructura son altos dado el uso del almacenamiento y que no hay garantías que no sufran un proceso de decaimiento \cite{DBLP:journals/fgcs/DeelmanVJRCMMCS15}.  
+Sin embargo, este proceso se realiza de forma de manual, dejando mucho trabajo a los científicos
+En el trabajo, los autores no enfrentan la conservación física del entorno computacional argumentando tres motivos: (i) que los costos necesarios para almacenar los máquinas virtuales (ambiente) son muy altos, (ii) la existencia de dificultades dado a las restricciones políticas de las organizaciones a cargo y (iii)Chapters/Chapter1/chapter1.tex procesos de decaimiento del ambiente computacional en el tiempo~\cite{DBLP:journals/fgcs/DeelmanVJRCMMCS15}
+
+
 Consecuentemente, la mayoría de los trabajos dejan fuera la conservación física del entorno informático del workflow. Pese a que la conservación lógica y física son deseadas para lograr la reproducibilidad del experimento.
 
 En diversos trabajos ~\cite{DBLP:journals/bioinformatics/LeprevostGARUBV17, Beaulieu2017, Boettiger:2015:IDR:2723872.2723882, aranguren2015enhanced} se ha propuesto la utilización de Docker como un reemplazo al uso de máquinas virtuales como ambiente computacionales científicos, los trabajos argumentan que Docker presenta beneficios de portabilidad, documentación precisa de la instalación y configuración, manejo de control de versiones de las imágenes y fácil adopción por desarrolladores. 
@@ -303,7 +304,6 @@ Distintas especificaciones se han publicado: en 1999 se adopto como una recomend
 
 RDF extiende la estructura de enlace de la Web para usar URIs para nombrar la relación entre cosas. Un triple tiene la forma de expresión  $\langle sujeto, predicado, objeto \rangle$. Donde el $sujeto$ indica el recurso, el $predicado$ nombra la relación entre el $sujeto$ y $el objeto$
 
-%todo: rewrite
 \subsection{RDFS}
 RDFS (de las siglas del inglés \emph{Resource Description Framework Schema},
 también llamado RDF Schema) es un vocabulario que extiende RDF utilizando un
