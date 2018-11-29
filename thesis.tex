@@ -1,0 +1,156 @@
+\documentclass[12pt, letterpaper, oneside]{book}
+
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{microtype}
+\usepackage{emptypage}
+\usepackage{usmtesis}
+\usepackage{url}
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{float}
+%\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+\usepackage[]{tocbibind}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{subcaption}
+
+\usepackage{listings}
+\usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{FFFFFF}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+
+\lstset{
+  language=bash,
+  frame=top,frame=bottom,
+  basicstyle=\small\normalfont\sffamily,    % the size of the fonts that are used for the code
+  stepnumber=1,                           % the step between two line-numbers. If it is 1 each line will be numbered
+  numbersep=10pt,                         % how far the line-numbers are from the code
+  tabsize=2,                              % tab size in blank spaces
+  extendedchars=true,                     %
+  breaklines=true,                        % sets automatic line breaking
+  captionpos=t,                           % sets the caption-position to top
+  mathescape=true,
+  stringstyle=\color{white}\ttfamily, % Farbe der String
+  showspaces=false,           % Leerzeichen anzeigen ?
+  showtabs=false,             % Tabs anzeigen ?
+  xleftmargin=17pt,
+  framexleftmargin=17pt,
+  framexrightmargin=17pt,
+  framexbottommargin=5pt,
+  framextopmargin=5pt,
+  showstringspaces=false      % Leerzeichen in Strings anzeigen ?
+}
+
+
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+
+\makeatother
+%
+\RequirePackage{fancyhdr}
+\newcommand{\hsp}[1][20]{\hspace{#1pt}}
+\fancyhf{}
+\fancypagestyle{plain}{%
+	\fancyhf{} 
+	\fancyhead[L]{\scriptsize \rightmark}
+	\fancyhead[R]{\scriptsize \leftmark}
+	\fancyfoot[R]{\bfseries \thepage}
+	\fancyfoot[L]{Departamento de Informática. UTFSM.}
+	\renewcommand{\headrulewidth}{0.1pt}
+	\renewcommand{\footrulewidth}{0.1pt}
+}
+%\setlength{\footheight}{110pt} 
+\usepackage{xargs}                      % Use more than one optional parameter in a new commands
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+\newcommandx{\unsure}[2][1=]{\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{#2}}
+
+%macros
+\renewcommand{\tt}[1]{\texttt{#1}}
+\renewcommand{\it}[1]{\textit{#1}}
+\renewcommand{\bf}[1]{\textbf{#1}}
+\newcommand{\etal}{\emph{et al.}}
+\newcommand{\get}{$\gets$\,\,}
+\newcommand{\ra}{$\rightarrow\,\,$}
+\newcommand{\la}{$\leftarrow\,\,$}
+
+\floatname{algorithm}{Algoritmo}
+\renewcommand{\listalgorithmname}{Índice de algoritmos}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\setcounter{tocdepth}{1}
+
+\begin{document}
+\frontmatter
+\thispagestyle{empty}
+\input{Chapters/Chapter0/front.tex}
+\newpage
+
+%debug
+%\layout
+%\newpage
+
+%% Hack para el abstract corregir si se puede.
+%\chapter*{ }
+%\vspace{-3cm}
+%\section*{Abstact} \chaptermark{Abstract}
+%\section*{Resumen}
+
+\begin{spacing}{1}
+  \tableofcontents \chaptermark{Tabla de contenidos}
+  \listoffigures
+  \listoftables
+  %\listofalgorithms\addcontentsline{toc}{chapter}{\bf{\listalgorithmname}}
+\end{spacing}
+
+% ******************************** Main Matter *********************************
+\mainmatter
+\include{Chapters/Chapter1/chapter1}
+\include{Chapters/Chapter2/chapter2}
+\include{Chapters/Chapter3/chapter3}
+\include{Chapters/Chapter4/chapter4}
+\include{Chapters/Chapter5/chapter5}
+\include{Chapters/Chapter6/chapter6}
+
+
+\bibliographystyle{ieeetr}
+\bibliography{References/references}
+
+\end{document}

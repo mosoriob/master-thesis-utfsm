@@ -1,0 +1,111 @@
+% Chapter 1
+
+\chapter{Introducción} % Main chapter title
+
+\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+
+%----------------------------------------------------------------------------------------
+
+% Define some commands to keep the formatting separated from the content 
+\newcommand{\keyword}[1]{\textbf{#1}}
+\newcommand{\tabhead}[1]{\textbf{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{\bfseries#1}}
+\newcommand{\option}[1]{\texttt{\itshape#1}}
+
+%----------------------------------------------------------------------------------------
+\section{Abstract}
+
+La reproducibilidad de experimentos es la habilidad de correr un experimento con la introducción de cambiar y obtener resultados que son consistentes con los originales. Para permitir la reproducibilidad, la comunidad científica ha incentivado a los investigadores a publicar la descripción de los experimentos.
+
+%Experiment reproducibility is the ability to run an experiment with the introduction of changes to it and getting results that are consistent with the original ones. To allow reproducibility, the scientific community encourages researchers to publish descriptions of the these experiments. 
+
+Sin embargo, estas recomendaciones no incluyen una forma automática para crear esta 
+%However, these recommendations do not include an automated way for creating such descriptions: normally scientists have to annotate their experiments in a semi automated way. Moreover
+In this paper we propose a system to automatically describe computational environments used in in-silico experiments. We propose to use Operating System (OS) virtualization (containerization) for distributing software experiments throughout software images and an annotation system that will allow to describe these software images. The images are a minimal version of an OS (container) that allow the deployment of multiple isolated software packages within it. 
+Then we apply this approach over different real workflow and 
+systems.
+
+Experiment results shows that our approach can reproduce a equivalent environment using Docker Containers.
+%----------------------------------------------------------------------------------------
+%	SECTION 1
+%----------------------------------------------------------------------------------------
+
+\section{Experimentos científicos computacionales} 
+
+
+El incremento de uso de las ciencias de la computación, que es la cien
+
+El uso de la computación en la ciencia,
+
+
+
+%context
+The emergence of computational science, that is, science executed using computational models and simulations, has also implied an increasing interest on reproducibility
+
+La reproducibilidad de experimentos es la habilidad de correr un experimento con la introducción de cambios y obtener resultados que son consistentes con los originales. La introducción de cambios permite evaluar diferentes características del experi
+
+
+
+
+Experiment reproducibility is the ability to run an experiment with the introduction of changes to it and getting results that are consistent with the original ones. Introducing changes allows to evaluate different experimental features of that experiment since researchers can incrementally modify it, improving and repurposing the experimental methods and conditions~\cite{stodden2010reproducible}.
+To allow experiment reproducibility it is necessary to provide enough information about that experiment, allowing to understand, evaluate and build it again. Usually, experiments are described in scientific workflows (representations that allow managing large scale computations) which run on distributed computing systems. 
+To allow reproducibility of these scientific workflows it is necessary first to address a workflow conservation problem, since experimental workflows need to guarantee that there is enough information about the experiments so it is possible to build them again by a third party, replicating its results without any additional information from the original author~\cite{garijo2013quantifying}. 
+
+To achieve conservation the research community has focused on conserving workflow executions by conserving data, code, and the workflow description, but not the underlying infrastructure (i.e. computational resources and software components). There are some approaches that that focused on conserving the environment of an experiment such as the work in~\cite{santana2017reproducibility} or the Timbus project\footnote{\url{http://www.timbusproject.net/}}~\cite{dappert2013describing} that focuses on business processes and the underlying software and hardware infrastructure. 
+
+The authors in~\cite{santana2017reproducibility} identified two approaches for conserving the environment of a scientific experiment: physical conservation, where the research objects within the experiment are conserved in a virtual environment; and logical conservation, where the main capabilities of resources in the environment are described using semantic vocabularies to allow a researcher to reproduce an equivalent setting. The authors defined a process for documenting the workflow application and its related management system, as well as their dependencies. However this process is done in a semi-automated manner, leaving much work left to the scientists. Furthermore, usually most works leave out of the scope the physical conservation of the execution of scientific workflows. 
+
+%need
+However, logical and physical conservation are important to achieve the goals of the researchers.
+
+La conversación lógica permite describir los recursos computaciones y a partir de estas descripciones cualquier cientifico podrá reconstruir la infraestructura y correr el experimento cíentifico. No obstante, el proceso de descripción debe ser automatico para evitar errores y perdidas de tiempo.
+
+%will be able to reconstruct the infrastructure and run the experimient.
+
+Y la conservación física permite distribuir fácilmente el ambiente computacional del workflow, evitando que los científicos hagan la configuración o la instalación de bibliotecas o binarios requeridas para ejecutarlo. Sin embargo, los trabajos anteriores muestran que la conservación física presentan dificultades debido al tamaño de la imagen que contiene el sistema operativo o 
+Also, the main problem for conserving the physical environment of an experiment is the amount of space needed.
+
+
+
+%task
+Herein we propose a solution to improve the physical and logical conservation solution by using operating-system-level virtualization. This technology, also known as containerization, refers to an Operating System (OS) feature in which the OS kernel allows the existence of multiple isolated user-space instances called containers. 
+
+One of the most popular virtualization technologies is Docker\footnote{\url{https://www.docker.com/}}, which implements software virtualization by creating minimal versions of a base operating system (a container). 
+Docker Containers can be seen as lightweight virtual machines that allow the assembling of a computational environment, including all necessary dependencies, e.g., libraries, configuration, code and data needed, among others. 
+Using Docker, the users can distribute these computational environments through software images. 
+
+
+% With container virtualization it is possible to reduce to the minimum the size of the virtual machine needed for running the scientific workflow. 
+
+We propose first to use Docker images as means for preserving the physical environment of an experiment. We use containers since they are lightweight and more importantly, they are easier to automatically describe so we  improve the process of documenting scientific workflows
+In order to achieve logical conservation, we built a annotator system for the Docker Images that describe the workflow management system, as well their dependencies by developing an annotator system for the Docker images before.
+
+
+%object
+This work report the...
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%findings
+
+%conclusion
+
+
+
+
+\subsection{Experimental Sciences Approaches}
+
+\subsubsection{In Vivo and In Vitro Science}
+
+\subsubsection{In Silico Science}
+
+\subsubsection{The Challenge of Scientific Reproducibility}
+
+
+\subsection{Computational Scientific Experiments}
+
+\subsubsection{Workflows in Science}
+
+
+\subsection{Scientific Conservation and Reproducibility}

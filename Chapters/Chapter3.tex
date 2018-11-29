@@ -1,0 +1,75 @@
+% Chapter Template
+
+\chapter{Objetivos de trabajo}
+
+\label{Chapter3} 
+
+El principal objetivo de este trabajo es complementar enfoques existentes para la reproducibilidad científica en el área de las ciencias de la computación. Para ello, se propone un nuevo enfoque para conservar el ambiente de ejecución del experimento científico.
+Hemos identificado problemas abiertos, en orden de definir los objetivos de trabajo. Luego, estos objetivos se ven formalizados por un conjunto de hipótesis. Y además, se define un conjunto de hechos que se asumen para restringir el campo de aplicación de la propuesta.
+
+%--------------------------------------------
+%	SECTION OPEN RESEARCH PROBLEMS
+%-------------------------------------------
+
+
+\section{Open Research Problems}
+\begin{itemize}
+	\item Problema 1: La infraestructura computacional utilizada por un workflow científico se encuentra predefinida. Por lo tanto, no existe una definición de los recursos de la infraestructura para ejecutar el experimento. Consecuentemente, pueden existir dificultades para lograr la reproducción del experimento. 
+	\item Problema 2: La conservación física de los ambientes computaciones permite mantener y compartir fácilmente el ambiente con la comunidad. Sin embargo, se ha descartado debido a tres problemas: 
+		1. Alta utilización de almacenamiento por parte de las máquinas virtuales, 
+		2. El acceso a los datos almacenados está sujetos a políticas de la organización 
+		y 3. Existe un proceso de decaimiento en tiempo.
+		Sin embargo, no se ha estudiado el uso de containers para solucionar el problema.
+	\item Problema 3: Los enfoques actuales anotan los pasos de construcción de los ambientes computacionales de forma indirecta, por lo tanto, recaen en el científico 
+\end{itemize}
+
+%--------------------------------------------
+%	SECTION HIPÓTESIS
+%-------------------------------------------
+
+
+
+\section{Hipótesis}
+
+En función a los problemas abiertos detectados, se definen las siguientes hipótesis:
+
+\begin{itemize}
+	\item Un proceso automático puede describir los requerimientos de ambiente computacional y codificarlo en un formato compartible  utilizando modelos semánticos.
+	\item La descripción de containers utilizando modelos semánticos permite la reproducción del ambiente de un experimento científico.
+\end{itemize}
+%--------------------------------------------
+%	SECTION OBJETIVOS
+%-------------------------------------------
+
+
+\section{Objetivos}
+
+Para enfrentar los problemas abiertos se definen los siguientes objetivos. Estos objetivos permiten la verificación de la hipótesis y ser una guía para el desarrollo.
+
+
+
+\begin{itemize}
+	\item Lograr conservación física y lógica de los ambientes computaciones de un experimento usando Containers
+%	\item Conduct logical and physical conservation of the computational environment of the experiment using containers.
+	\item Implementar un proceso automático capaz de leer la descripción del ambiente y especificar uno nuevo.
+%	\item Implement an automated process able to read the mentioned information and specify a new environment of it, supporting the formerly required features.
+	\item Integrar un sistema que permita el despliegue de estos ambientes computacionales en proveedores de infraestructura e instalar el software apropiado basado al plan de despliegue.
+%	\item Integrate a system that allows the deployment of these computational environments in various infrastructure providers and install the appropriate software based on the deployment plan.
+
+\end{itemize}
+\subsection{Objetivos específicos}
+
+\begin{itemize}
+	\item Adaptar y mejorar modelos estándares que describen ambientes computacionales científicos para incluir virtualización basada en containers.
+	\item Designar una framework para anotar los componentes de ambiente del experimento usando modelos semánticos.
+%	\item 	Adapt and improve standard models that describe Computational Scientific Experiment to include Container-based virtualization.
+%	\item Designate a framework to annotate the components of the environment’s experiments using the previous models.
+\end{itemize}
+
+
+
+\section{Restricciones}
+
+\begin{itemize}
+	\item Ambientes Linux
+\end{itemize}

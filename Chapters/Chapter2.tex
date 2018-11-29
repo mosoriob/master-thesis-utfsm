@@ -1,0 +1,136 @@
+% Chapter 1
+
+\chapter{Estado del arte} % Main chapter title
+
+\label{Chapter2} % For referencing the chapter elsewhere, use \ref{Chapter1}
+
+
+\section{Experimentos científicos computacionales} 
+
+La reproducibilidad de los resultados en experimentos es una piedra angular del método científico. Es por ello, que la comunidad científica ha incentivado a los investigadores a publicar sus contribuciones en un forma verificable y entendible \cite{james2014standing,stodden2010reproducible}.
+
+Los términos de reproducibilidad y repetibilidad son utilizados como sinónimos. En este trabajo, utilizaremos las definiciones propuestas por \cite{santana2017reproducibility}, replicabilidad será definida como recreación estricta del experimento original y reproducibilidad es menos restrictivo e implica que puedan existen algunos cambios.
+
+Particularmente, en las áreas de la ciencia donde se ejecutan experimentos in-silico, o sea que realizan a través de computadores o simulaciones, la reproducibilidad requiere que los investigadores compartan el código y los datos de los experimentos realizados con el fin de que tanto los resultados como el método pueden ser analizados en una forma similar al trabajo original descrito en la publicación asociada a dicho experimento. Para lograr ese objetivo, el código debe estar disponible y los datos deben encontrarse en un formato leíble \cite{stodden2014implementing}.
+
+
+\subsection{Conservación de procedimiento científicos}
+
+Distintas áreas de la ciencia ha adoptado los workflows para conservar el procedimiento. Los workflows científicos son métodos que permiten representar un conjunto de pasos computacionales. Estos pasos pueden ser la obtención de los datos de entrada, transformaciones o generación de los resultados.
+Por ejemplo, investigadores en bio-informática ha incorporado los workflows para distintos análisis: 
+Doblamiento de proteínas \cite{craddock2006science}, secuencias de DNA y RNA \cite{blankenberg2010galaxy,giardine2005galaxy} y la detección de ondas gravitacionales \cite{deelman2004pegasus}.
+
+
+La representación de los workflow se construye en un lenguaje abstracto para simplificar la complejidad. El conjunto de pasos se pueden representar como gráfos sin ciclos y dirigidos, donde cada paso computacional es representado por un nodo y las dependencias entre los pasos son representado por los arcos.
+
+El uso de sistemas de manejo de workflows científicos \textit{Scientific Workflow management Systems (WMS)} ha sido adoptado por la comunidad permitiendo diseñar abstractamente y ejecutar el procedimiento científicos. 
+
+Múltiples estudios han mostrado las dificultades reproducir los resultados de los experimentos: 
+
+
+
+
+
+
+Dado que los workflows formalmente describen la secuencia de tareas computacionales y administración de datos, es fácil encontrar el camino de los datos producidos.
+Un científico podría ver el workflow y los datos, seguir los pasos y llegar al mismo resultado. En otras palabras, la representación del workflow facilita la creación y administración de la computación y además construye una base en la cual los resultados pueden ser validados y compartidos.
+
+Como se menciono, la mayoría de las propuestas de reproducibilidad de ambientes en las ciencias de computación se han enfocado en los datos, el código y la descripción de workflow pero ha dejando de lado los recursos computacionales y componentes de software. Siendo un recurso esencial para reproducir el experimento
+
+De acuerdo a \cite{king1995replication}, en orden de reproducir o replicar un artefacto digital es necesario manejar su conservación y para alcanzar esta conservación se debe garantizar que: existe la suficiente información con la cual se pueda entender, evaluar y construir un trabajo anterior sin información adicional del autor. 
+
+Uno de los trabajos que se ha enfocado en conservar los recursos de un ambiente computacional es \cite{santana2017reproducibility}. Donde los autores han identificado dos enfoques para conservar un ambiente científico. Conversación física: donde el objeto real es conservado dada la relevancia y la dificultada de obtener una replica y  Conversación lógica: donde los objetos son descriptos en una manera que un experimento similar puede ser obtenido en un futuro experimento.
+
+
+\section{Sistemas de administración de workflows}
+
+Cómo se menciono anteriormente, Los workflows científicos permiten a los usuarios expresar fácilmente tareas computacionales de varios pasos, por ejemplo, recuperar datos de un instrumento o una base de datos, reformatear los datos y ejecutar un análisis. 
+Un flujo de trabajo científico describe las dependencias entre las tareas y en la mayoría de los casos el flujo de trabajo se describe como un gráfico acíclico dirigido (DAG), donde los nodos son tareas y los bordes denotan las dependencias de las tareas.
+Una propiedad que define un flujo de trabajo científico es que gestiona el flujo de datos. Las tareas en un flujo de trabajo científico pueden ser de todo, desde tareas en serie cortas hasta tareas paralelas muy grandes (MPI, por ejemplo) rodeadas de un gran número de pequeñas tareas en serie utilizadas para el pre y postprocesamiento.
+La interpretación y ejecución de los workflows son manejados por un sistema de manejo de workflows (WMS) que administra la ejecución de la aplicación en la infraestructura. 
+Un WMS puede ser considerado como una capa intermedia necesaria para la abstracción y orquestación de prodecimiento científico. A continuación se describe algunos de los WMS más populares.
+
+Actualmente, existen múltiples WMS que han sido generado por diversas comunidades.
+
+\begin{description}
+	\item [Galaxy:] Galaxy (Goecks et al., 2010) is a web-based WMS that aims to bring computational data analysis capabilities to non-expert users in the biological sciences domain. The main goals of the Galaxy framework are accessibility to biological computational capabilities and reproducibility of the analysis result by tracking the information related to every step on the process. 
+	\item [Taverna: ] Taverna is a Web Service-based WMS, as all the components of the workflow must be implemented as web services (either locally or using an available remote service). Taverna is able to integrate Soaplab26, REST (Fielding, 2000) and WSDL (Christensen et al., 2001) web services. It offers a wide range of services for different processing capabilities, such as local Java services, statistical R processor services, XPath scripts, or spreadsheet import services.
+	\item [Pegasus:] Pegasus (Deelman et al., 2005) is a WMS able to manage workflows comprised of mil- lions of tasks, recording data about the execution and intermediate results. In Pegasus, workflows are described as abstract workflows, which do not contain resource informa- tion, or the physical locations of data and executables.
+	\item [WINGS:] WINGS (Gil et al., 2011) may not be considered as a proper WMS by itself, as it does not provide workflow enactment and execution features. However it is widely known for workflow design. WINGS can be seen as a top-level and domain-oriented design tool whose workflows can be later enacted in different workflow engines, such as Pegasus or Apache OODT29.
+	\item [dispel4py:] dispel4py (Filguiera et al., 2014) is a Python (Rossum, 1995) library for describing workflows. It describes abstract workflows for data-intensive applications, which are later translated and enacted in distributed platforms (e.g. Apache Storm, MPI clusters, etc.).
+
+\end{description} 
+
+\subsection{Pegasus}
+
+\subsection{Dispel4py}
+
+\subsection{WINGS}
+
+\section{Reproducibilidad en ciencias de la computación}
+
+\subsection{Conservación de equipamiento}
+El equipamiento en otras disciplinas comúnmente no es un problema a resolver dado que los recursos que se utilizan son son conocidos, no-variables y estándares. Por ejemplo, la utilización de probetas, microscopios u otros. Consecuentemente, son nombrados e identificado de forma manual en los procedimientos de los cuadernos de laboratorio. Lo que permite que otro investigador conozca cuáles fueron las herramientas utilizadas.
+En otros casos como en biología, ciertos recursos son materiales y deben ser incluidos dentro de los procedimientos, esta información incluye marcas, composición y otra información. Y en la astronomía observamos  la utilización de recursos  de alta tecnología. donde también es necesario documentar las características de hardware y configuraciones utilizadas en el proceso experimental. 
+
+En las ciencias de la computación observamos un caso similar, dado que los recursos computacionales son una componente en la ejecución del sistema. 
+Es por ello, que los investigadores de esta comunidad que realizan publicaciones no debe ser la excepción respecto a la descripción de los recursos y los autores deben poder documentar computadores, clusters, servicios web, componentes de software, etc., en el contexto de sus experimentos.
+
+En \cite{DBLP:conf/eScience/ZhaoGBKGGHRRG12} se estudia el factor de decaimiento de un set workflows científicos almacenado en myExperiment que fueron diseñados para el sistema Taverna del área de biología . Los autores utilizando cuatro conjuntos de paquetes de workflows y clasifican el decaimiento de los workflows en cuatro categorías: recursos de terceros volatiles, datos de ejemplos faltantes, ambiente de ejecución faltante y descripciones insuficientes sobre los workflow. El estudia muestra que casi el 80\% de workflows fallan al ser reproducidos, con un 12\% de esos fallos debido a ambiente de ejecución faltante y 50\% recursos de terceros volatiles.
+
+En \cite{DBLP:conf/ipres/MatthewsCWJBS09}, los autores describen un procedimiento para preservar el software, argumentando que el software es frágil a los cambios de ambiente: hardware, sistema operativo, versiones de las dependencias y configuración. Los autores afirman que el software no puede ser preservado con la metodología de sólo mantener su código binario ejecutable y introducen el concepto de adecuación de la preservación, una métrica para medir si la preservación de conjunto de funcionalidades de componente de software luego de un proceso reproducción
+La comunidad ha enfocado en mejorar los desafíos en la publicación de trabajos científicos, Elsevier formó el Executable Paper Grand Challenge para abordar el problema de que los resultados de la investigación informática pueden ser difíciles de reproducir. Los bloques vitales de información necesarios para replicar tales resultados -por ejemplo, software, código, grandes conjuntos de datos- no suelen estar disponibles en el contexto de una publicación académica.  Executable Paper Grand Challenge crea una oportunidad para que los científicos diseñen soluciones que capturen esta información y proporcionen una plataforma para que estos datos puedan ser verificados y manipulados. En 2011, \cite{DBLP:journals/procedia/BrammerCMW11} argumentaron que el documento de investigación en su estado actual ya no es suficiente para reproducir, validar o revisar completamente los resultados y conclusiones experimentales de un documento. Esto impide el progreso científico. Para remediar estas preocupaciones, presentan Paper Maché, un nuevo sistema para crear documentos de investigación dinámicos y ejecutables. La principal novedad de Paper Maché es el uso de máquinas virtuales, que permite a los lectores y revisores ver e interactuar fácilmente con un documento y reproducir los principales resultados experimentales.
+En la misma línea, CernVM \cite{buncic2010cernvm} propuso la utilización de máquinas virtuales para resolver problemas de reproducibilidad en la ciencia. CernVM es un sistema para el uso de máquina virtuales capaz de ejecutar aplicaciones físicas de los experimentos del LHC en el CERN. Su objetivo es proporcionar un entorno completo y portátil para desarrollar y ejecutar el análisis de datos LHC en cualquier ordenador de usuario final (portátil, de sobremesa), así como en la red, independientemente de las plataformas de sistemas operativos (Linux, Windows, MacOS). La motivación del uso de técnicas de virtualización que permite separar los recursos de computación desde la infraestructura subyacente.
+
+Algunos autores han expuesto la necesidad de capturar y preservar el entorno de ejecución de un ejecución del experimento, proporcionando herramientas para analizar y empaquetar los recursos involucrados en el mismo.
+ReproZip \cite{DBLP:conf/tapp/ChirigatiSF13} busca captar el conocimiento sobre una infraestructura e intentar reproducirlo en un nuevo entorno. Esta herramienta lee los componentes de infraestructura involucrados en la ejecución (archivos, variables de entorno, etc.) y almacena esta información en una base de datos MongoDB \footnote{\url{https://www.mongodb.com/es}}. A continuación se recogen y empaquetan los elementos descritos. Luego, el sistema debe desempaquetar en otra máquina para repetir el experimento. Sin embargo, este tipo de enfoque que empaqueta los componentes físicos de una infraestructura determinada presenta limitación en la práctica, debido que los paquetes deben ser ejecutado en un máquina destino similar.
+TOSCA (Topology and Orchestration Specification for Cloud Applications) es un ejemplo de soluciones que han definido sintaxis para describir la ejecución de los ambientes computacionales. TOSCA es un lenguaje de código abierto utilizado para describir las relaciones y dependencias entre servicios y aplicaciones que residen en una plataforma de computación en nube. TOSCA puede describir un servicio de computación en nube y sus componentes y documentar la forma en que están organizados y el proceso de orquestación necesario para utilizar o modificar dichos componentes y servicios. Esto proporciona a los administradores una forma común de gestionar aplicaciones y servicios en la nube, de modo que esas aplicaciones y servicios puedan ser portátiles a través de las diferentes plataformas de los proveedores de cloud computing. 
+Otro esfuerzo importante relacionado a nuestro trabajo incluye la descripción de los ambientes computaciones utilizando ontologías es TIMBUS. El proyecto se focaliza en preservar procesos de negocios y su infraestructura computacional.  Para ello, propusieron un extractor para extraer y anotar los componentes de Software y Hardware, éstas anotaciones son almacenada según un conjunto de ontologías  para gestionar la preservación y reejecución de los procesos de negocio. Sin embargo, el enfoque extractor del Proyecto Timbus no es adecuado para ser utilizado en Contenedores ya que aumenta la complejidad del contenedor, exige ejecutar el sistema lo cual conlleva aumento del costo computacional y creación de brechas de seguridad. 
+
+
+Los autores en \cite{santana2017reproducibility} identificaron dos enfoques para conservar el medio ambiente de un experimento científico: la conservación física, donde los objetos de investigación dentro del experimento se conservan en un entorno virtual; y la conservación lógica, donde las principales capacidades de los recursos en el entorno se describen utilizando vocabularios semánticos para permitir al investigador reproducir un entorno equivalente. Definieron un proceso para documentar la aplicación de flujo de trabajo y su sistema de gestión relacionado, así como sus dependencias. Además, los autores propusieron The Workflow Infrastructure Conservation Using Semantics ontology (WICUS). WICUS es una red de ontologías OWL2 (Web Ontology Language) que implementa la conceptualización de los principales dominios de una infraestructura computacional. Estos hijo: Hardware, Software, Workflow y Recursos Informáticos. El flujo de trabajo científico requiere una pila de componentes de software, y los investigadores deben saber cómo desplegar esta pila de software para lograr un entorno equivalente.
+Sin embargo, este proceso se realiza de forma de manual, dejando mucho trabajo a los científicos. 
+
+Los autores afirman que la conservación de los ambientes computacionales comúnmente se logra utilizando un enfoque físico, debido a que esto permite compartir fácilmente un ambiente computacional con otros investigadores y ellos pueden reproducir el experimento utilizando en el mismo ambiente. 
+Sin embargo, los esfuerzos necesarios para mantener la infraestructura son altos y no hay garantías que no sufran un proceso de decaimiento \cite{DBLP:journals/fgcs/DeelmanVJRCMMCS15}.  
+Consecuentemente, la mayoría de las trabajo dejan fuera del ámbito de aplicación la conservación física del entorno informático del flujo de trabajo (basándose en la infraestructura elegida). Sin embargo, la conservación lógica y física es importante para lograr la reproducibilidad del experimento. 
+
+En diversos trabajos \cite{DBLP:journals/bioinformatics/LeprevostGARUBV17}, ~\cite{Beaulieu2017}, ~\cite{Boettiger:2015:IDR:2723872.2723882} y \cite{aranguren2015enhanced} se ha propuesto la utilización de Docker como un reemplazo al uso de máquina virtuales como ambiente computacionales científicos, los trabajos argumentan que Docker presenta beneficios de portalibilidad, documentación precisa de la instalación y configuración, manejo de control de versiones de las imágenes y fácil adopción. 
+Un ejemplo de uso de Docker para la reproducibilidad es BioContainers \cite{DBLP:journals/bioinformatics/LeprevostGARUBV17} es un framework de código abierto y orientado a la comunidad que proporciona entornos ejecutables independientes de la plataforma para el software de bioinformática. BioContainers permite a los laboratorios instalar fácilmente software de bioinformática, mantener múltiples versiones del mismo software y combinar herramientas en poderosas tuberías de análisis. BioContainers se basa en los populares proyectos de código abierto Docker y rkt, que permiten que el software sea instalado y ejecutado bajo un entorno aislado y controlado.
+Sin embargo, en \cite{Boettiger:2015:IDR:2723872.2723882,DBLP:conf/semweb/OsorioAV18} los autores exponen que Docker no controla que paquetes hay en las imágenes y no existe una descripción completa de los componentes del container. Así, las imágenes Docker funcionan como una caja negra, lo que significa que los usuarios saben que el paquete de software principal se ejecuta dentro del contenedor pero no conocen las versiones o los otros paquetes necesarios para ejecutarlo.
+
+%caja negra
+En \cite{Shu:2017:SSV:3029806.3029832:DockerHub:Security} analizó más de 300.000 imágenes de Docker almacenadas en el repositorio oficial de Docker. Los autores han encontrado en promedio que las imágenes que contiene el Docker Hub son más de 180 vulnerabilidades, siendo la raíz de tal cantidad de vulnerabilidades el hecho de que muchas imágenes no han sido actualizadas en varios días; muchas de estas vulnerabilidades se propagan de imágenes de padres a hijos. Los autores encontraron correlaciones entre las imágenes más influyentes y los paquetes vulnerables mejor clasificados, lo que sugiere que la fuente de esa cantidad de vulnerabilidades era probablemente el resultado de la propagación de un pequeño número de imágenes populares (debido a la falta de actualización de las imágenes principales). Los autores utilizaron el software Clair \footnote{\url{https://github.com/coreos/clair}} de la empresa CoreOS\footnote{\url{https://coreos.com/}}. 
+
+
+En términos de ingeniería ontológica, los autores in~\cite{huo2015smart} presentan la ontología Smart Container que extiende DOLCE~\cite{gangemi2002sweetening} y modela Docker en términos de sus interacciones para desplegar imágenes. Otro trabajo relacionado, ~\cite{tommasini2017representing}  describe cómo usar RDF para representar archivos de construcción de Docker. 
+
+
+
+
+
+\section{Docker Overview}
+
+
+
+\label{sec-Docker_overview}
+Docker is a technology that allows virtualizing a minimal version of an Operating System. Therefore users can run applications within it. Throughout this section, we introduce how Docker and its registry (Docker Hub) work, starting with how Docker images are created and stored in Docker Hub. 
+
+\subsection{Docker repositories and files}
+
+Docker builds a software image by reading a set of instructions from a Dockerfile. A Docker file is a text file that contains all commands to build a Docker image. Docker files usually have multiple lines, which are translated into image layers whereas Docker builds the image. In the build process, the command is executed sequentially, creating one layer after the other. When an image is updated or rebuilt, only modified layers (i.e., modified lines) are updated. 
+
+
+\subsection{Publishing and Deploying Docker images from Docker Hub}
+
+Docker Hub is an online registry that stores two types of public repositories, both official, and community. Official repositories contain public, verified images such as Canonical, Nginx, Red Hat, and Docker. At the same time, community repositories can be public or private and are created by any user or organization.
+By using that registry and a command line, it is possible to download and deploy Docker images locally as a running container into a host executing thus the software within the image. 
+Anyone has the chance to create and store images into the Docker Hub registry by first creating a descriptor file called Dockerfile. 
+This descriptor describes what software packages will be within the image, builds the image and finally uploads it to Docker Hub. However, Docker Hub does not control what packages are in the images, whether the image will deploy correctly or the images might have any security problem. 
+Thus, Docker images work as a black box, which refers that users know that the main software package runs within the container but they do not know the other packages needed to run it.
+
+
+
+There are two ways of uploading images to a user repository, either by a push from a local host or automating that process from a Github repository. In order to push a repository to the Docker Hub, the users need to name their local images using their Docker Hub username, and the repository name they had created. Afterwards, users add multiple images to a repository by adding a specific \texttt{:<tag>} to it. This is all the information that normally Docker images have, being thus almost impossible to reproduce the execution environment if any of the used software packages within the images is modified. 
+
+\section{Clair}
