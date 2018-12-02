@@ -36,8 +36,8 @@ Cada \texttt{wicus:SoftwareComponent} tiene una relación \texttt{dockerpedia:ha
 El recurso \texttt{dockerpedia:PackageVersion} puede estar afectado por vulnerabilidades representadas por el recurso \texttt{dockerpedia:SoftwareVulnerability}. Y las versiones que reparan la vulnerabilidad se encuentran representadas por \texttt{dockerPedia:SecurityRevision}.
 Una imagen Docker se representa por \texttt{dockerpedia:SoftwareImage} y sus capas por el recurso \texttt{dockerpedia:ImageLayer}. Los paquetes instalados en la imagen están relacionado por \texttt{vocab:ContainsSoftware} con su imagen.
 Finalmente, el sistema operativo es representado por el recurso \texttt{dockerpedia:OperatingSystem} y cada imagen y capa de la imagen está asociado al recurso.
-\todo[inline]{que logras con estas clases?}
-
+Con estas clases, podemos representar las capas que componen la imagen del ambiente computacional, los paquetes de software presentes en la imagen y en cada una de sus capas y además las vulnerabilidades asociadas a los paquetes.
+Desde el punto de los investigadores, la representación de las descripciones con esta ontología permite un formato claro para consultar y almacenar los datos.
 Una versión completa de la ontología se encuentra disponible en nuestros repositorios \footnote{\url{https://github.com/dockerpedia/ontology/}} y la versión resumida se observa en la figura ~\ref{fig:ontology}. 
 
 \begin{figure}[t]
