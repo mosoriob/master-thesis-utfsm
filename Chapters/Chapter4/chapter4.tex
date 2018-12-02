@@ -54,7 +54,7 @@ Una versión completa de la ontología se encuentra disponible en nuestros repos
 \section{Anotador}\label{s4.2}
 
 El servicio de anotación propuesto cuenta con una interfaz REST para recibir el nombre y la versión de la imagen Docker relacionada con el experimento científico. 
-Para almacenar e interactuar con los datos el sistema de anotación utiliza a Apache Jena~\footnote{\url{https://jena.apache.org/}}. Apache Jena es un framework Java gratuito\todo[inline]{las cosas no son gratis, son libres! verificar la licencia} y de código abierto para la construcción de aplicaciones de Web Semántica y Datos Enlazados. El sistema anotador construye los triples relacionados con el experimento, imagen, capas, componentes de software y vulnerabilidades y se envían usando la API de Apache Jena que serializa los triples utilizando formatos populares como RDF/XML o Turtle.
+Para almacenar e interactuar con los datos el sistema de anotación utiliza a Apache Jena~\footnote{\url{https://jena.apache.org/}}. Apache Jena es un framework Java, de código abierto basado en la licencia Apache 2.0 \footnote{\url{http://www.apache.org/licenses/LICENSE-2.0}} para la construcción de aplicaciones de Web Semántica y Datos Enlazados. El sistema anotador construye los triples relacionados con el experimento, imagen, capas, componentes de software y vulnerabilidades y se envían usando la API de Apache Jena que serializa los triples utilizando formatos populares como RDF/XML o Turtle.
 Es importante remarca que la arquitectura permita la utilización de otras herramienta en caso que Apache Jena no cumpla con los requerimientos de escalabilidad.
 
 El sistema anotación realiza dos tipos de anotaciones: Componentes de software y pasos de construcción.
