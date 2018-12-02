@@ -2,12 +2,66 @@
 
 \chapter{Conclusiones y trabajo futuro} % Main chapter title
 
-\label{ChapterX} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
-%----------------------------------------------------------------------------------------
-%	SECTION 1
-%----------------------------------------------------------------------------------------
+%--------------------------------------------
+%	SECTION HIPÓTESIS
+%-------------------------------------------
+%\section{Hipótesis}
+%
+%En función a los problemas abiertos detectados, se definen las siguientes hipótesis:
+%
+%\begin{itemize}
+%	\item Un proceso automático puede describir los requerimientos de ambiente computacional y codificarlo en un formato compartible utilizando modelos semánticos.
+%	\item La descripción de contenedores utilizando modelos semánticos permite la reproducción del ambiente de un experimento científico.
+%\end{itemize}
 
-\section{Main  1}
+En este trabajo se ha logrado dos contribuciones principales en el marco de la conservación y la reproducibilidad de ambientes computacionales de experimentos científicos. 
+Primero, se presentó una herramienta que permite automatizar el proceso de descripción de los componentes de un ambiente computacional construido con la tecnología de contenedores.
+Y luego, a partir del uso e implementación de modelos semánticos y 
+técnicas de virtualización se ha logrado la conversación y reproducibilidad del ambiente computacional requerido para la ejecución de un workflow 
+científico.
 
-m at, molestie in quam. Aenean rhoncus vehicula hendrerit.
+\section{Conclusiones}
+
+A partir del estudio de los desafíos abiertos y trabajos 
+relacionados en la reproducibilidad de ambientes computacionales se ha construido un framework que permite a los investigadores lograr la conservación física y lógica del ambiente computacional.
+
+En este documento se ha expuesto y probado que imágenes Docker son 
+livianas en comparación a otros enfoques y almacenables en repositorios públicos o privados y por lo tanto se puede alcanzar la conservación física sin el alto costo de almacenamiento de otros enfoques presentados en la literatura.
+
+Además, el uso de contenedores permite la implementación un proceso 
+automático capaz de realizar anotaciones de los componentes de
+ambiente computacional. 
+Mas aún, el proceso automático no incluye ruido dado que no requiere de instalar nuevos componentes dentro del ambiente. 
+Por ende, la anotación presentan componentes realmente vinculados al experimento.
+
+En la misma línea, el sistema no requiere ejecutar el ambiente 
+computacional dado que utiliza sólo lee archivos para obtener 
+los componentes de software.
+Por lo tanto, la propuesta no hereda los costo de computo del
+experimento.
+Además, este sistema puede re usar análisis anteriores de las capas padres si éstas ya han sido analizadas. 
+Finalmente, se ha probado la generalidad del sistema dado que puede 
+ser extendido a nuevos sistemas de paquetes como Conda.
+En conclusión, esta propuesta es una contribución única 
+que logra enfrentar satisfactoriamente ambos tipos de conservación de ambientes computacionales de experimentos científicos. 
+
+%objetivo: Adaptar y mejorar modelos estándares que describen ambientes computacionales científicos para incluir virtualización basada en contenedores.
+%objetivo: Integrar un sistema que permita el despliegue de estos ambientes computacionales en proveedores de infraestructura e instalar el software apropiado basado al plan de despliegue.
+
+Para almacenar las anotaciones, la propuesta ha utilizado y extendido la ontología WICUS \cite{santana2015towards} y a partir del uso de las anotaciones se ha logrado detectar problemas relacionados a las versiones de los componentes de software. y lograr la reproducción del ambiente computación.
+
+Además, los resultados de los experimentos muestran que es posible tomar las anotaciones del ambiente computacional, especificar un nuevo ambiente y ejecutarlo en múltiples proveedores de infraestructura.
+
+%objetivo: Designar una framework para anotar los componentes de ambiente del experimento usando modelos semánticos.
+Finalmente, esta propuesta utiliza, modifica e implementa nuevas herramientas construyendo un framework que permite anotar los componentes del ambiente computacional usando modelos semánticos.
+Permitiendo perfeccionar los procesos de conservación y reproducibilidad de ambientes computacionales de experimentos científicos.
+
+%killing phrase
+En resumen, en este trabajo se utiliza, modifica e implementa nuevas herramientas construyendo un framework para automatizar el proceso de obtención de los requerimientos del ambiente computacional, para luego almacenar estas anotaciones según modelos semánticos. Finalmente, esta propuesta concluye que la utilización de estas anotaciones permite la reproducción y detección de problemas del ambiente computacional de un experimento científico.
+
+\subsection{Trabajo futuro}
+
+Trace las llamadas de sistemas
+Extensión del sistema a pip
+Extension del sistema a otros sistemas de containers

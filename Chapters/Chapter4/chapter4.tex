@@ -2,8 +2,8 @@
 
 En este trabajo, se argumenta que las descripciones de los ambientes computacionales son necesarias para la reproducción del experimento. Además, la información debe ser la suficiente para comparar y detectar las diferencias entre el ambiente original y el reproducido.
 
-Dado que las imágenes Docker son ambientes aislados e independientes, los componentes de software dentro del contenedor si están relacionado al experimento y no existen componentes relacionados a otros experimentos.
-Por esta razón, se asegura que las anotaciones no presentarán ruido de otras herramientas o dependencias asociadas.
+Dado que las imágenes Docker son ambientes aislados e independientes, asumimos que los componentes de software dentro del contenedor si están relacionados al experimento y no existen componentes relacionados a otros experimentos dentro del mismo contenedor.
+Por esta razón, se asegura que las anotaciones no presentarán ruido de otras herramientas o dependencias asociadas, causadas por entremezclar la ejecución de otros experimentos con otros requisitos computacionales en el mismo contenedor.
 Para realizar una anotación automática de los paquetes instalados, se propone e implementa un sistema de anotación automático. El sistema requiere el nombre de una imagen existente en un repositorio de DockerHub y los datos del repositorio Git que almacena el archivo Dockerfile. 
 
 Los pasos asociados del sistema anotación:
@@ -22,7 +22,7 @@ Los pasos asociados del sistema anotación:
 \section{Modelos semánticos}\label{s4.1}
      
 En \cite{santana2017reproducibility}, los autores proponen \emph{The Workflow Infrastructure Conservation Using Semantics ontology (WICUS)}. WICUS es ontología OWL2 (Web Ontology Language) que implementa la conceptualización de los principales dominios de la infraestructura computacional. Estos son: Hardware, Software, Workflow y recursos de computo.
-Los autores definen que los workflows científicos requieren un conjunto de componentes de software, y los investigadores deben conocer cómo desplegar estos componentes para lograr ambiente equivalente.
+Los autores definen que los workflows científicos requieren un conjunto de componentes de software, y los investigadores deben conocer cómo desplegar estos componentes para lograr ambiente equivalente.\todo[inline]{describe un p[oco mejor tu contribución con la ontología, tiene que quedar claro que esto también es una contribución, sobre todo el detalle más fino que logras}
 Considerando que la ontología está relacionada con nuestro trabajo, se utiliza algunas clases y relaciones desde la ontología WICUS descriptas a continuación:
 
 \begin{description}
@@ -36,6 +36,7 @@ Cada \texttt{wicus:SoftwareComponent} tiene una relación \texttt{dockerpedia:ha
 El recurso \texttt{dockerpedia:PackageVersion} puede estar afectado por vulnerabilidades representadas por el recurso \texttt{dockerpedia:SoftwareVulnerability}. Y las versiones que reparan la vulnerabilidad se encuentran representadas por \texttt{dockerPedia:SecurityRevision}.
 Una imagen Docker se representa por \texttt{dockerpedia:SoftwareImage} y sus capas por el recurso \texttt{dockerpedia:ImageLayer}. Los paquetes instalados en la imagen están relacionado por \texttt{vocab:ContainsSoftware} con su imagen.
 Finalmente, el sistema operativo es representado por el recurso \texttt{dockerpedia:OperatingSystem} y cada imagen y capa de la imagen está asociado al recurso.
+\todo[inline]{que logras con estas clases?}
 
 Una versión completa de la ontología se encuentra disponible en nuestros repositorios \footnote{\url{https://github.com/dockerpedia/ontology/}} y la versión resumida se observa en la figura ~\ref{fig:ontology}. 
 
@@ -53,8 +54,8 @@ Una versión completa de la ontología se encuentra disponible en nuestros repos
 \section{Anotador}\label{s4.2}
 
 El servicio de anotación propuesto cuenta con una interfaz REST para recibir el nombre y la versión de la imagen Docker relacionada con el experimento científico. 
-Para almacenar y interactuar con los datos el sistema de anotación utiliza a Apache Jena. Apache Jena~\footnote{\url{https://jena.apache.org/}} es un framework Java gratuito y de código abierto para la construcción de aplicaciones de Web Semántica y Datos Enlazados. El sistema anotador construye los triples relacionados con el experimento, imagen, capas, componentes de software y vulnerabilidades y se envían usando la API de Apache Jena que serializa los triples utilizando formatos populares como RDF/XML o Turtle.
-Es importante remarca que la arquitectura permite la utilización de otra herramienta en caso que Apache Jena no cumpla con los requerimientos de escalabilidad.
+Para almacenar e interactuar con los datos el sistema de anotación utiliza a Apache Jena~\footnote{\url{https://jena.apache.org/}}. Apache Jena es un framework Java gratuito\todo[inline]{las cosas no son gratis, son libres! verificar la licencia} y de código abierto para la construcción de aplicaciones de Web Semántica y Datos Enlazados. El sistema anotador construye los triples relacionados con el experimento, imagen, capas, componentes de software y vulnerabilidades y se envían usando la API de Apache Jena que serializa los triples utilizando formatos populares como RDF/XML o Turtle.
+Es importante remarca que la arquitectura permita la utilización de otras herramienta en caso que Apache Jena no cumpla con los requerimientos de escalabilidad.
 
 El sistema anotación realiza dos tipos de anotaciones: Componentes de software y pasos de construcción.
 
@@ -66,8 +67,8 @@ El sistema anotación realiza dos tipos de anotaciones: Componentes de software 
 
 Anotamos el plan de despliegue (Deployment Plan) usando dos métodos. El primer método obtiene los pasos desde el archivo Dockerfile entregado por el usuario, esto permite obtener los pasos y la ubicación de archivo en el repositorio. 
 Usando este método se asegura la reconstrucción del ambiente debido a que cualquier archivo necesario por Dockerfile se encuentra en el repositorio Git.
-Sin embargo, un usuario puede construir una imagen sin compartir el archivo Dockerfile. En ~\cite{DBLP:conf/semweb/OsorioAV18a} se reporta que el 30\% de las imágenes Docker en DockerHub vincula su archivo Dockerfile. 
-Por lo tanto, sino existe información del Dockerfile el sistema anotación utiliza el manifiesto de la imagen Docker. Sin embargo, si el usuario no comparte su repositorio con los archivos no podemos asegurar la reproducibilidad por la falta del código o configuración y la información se guarda para referencia del investigar.
+Sin embargo, un usuario puede construir una imagen sin compartir el archivo Dockerfile. En ~\cite{DBLP:conf/semweb/OsorioAV18a} se reporta que sólo el 30\% de las imágenes Docker en DockerHub vincula su archivo Dockerfile. 
+Por lo tanto, si no existe información del Dockerfile el sistema anotación utiliza el manifiesto de la imagen Docker. Sin embargo, si el usuario no comparte su repositorio con los archivos no podemos asegurar la reproducibilidad por la falta del código o configuración y la información se guarda para referencia del investigar.
 Respecto al manifiesto,  según \footnote{\url{https://docs.docker.com/registry/spec/manifest-v2-2/}} el manifiesto de la imagen provee la configuración y el conjunto de las capas y pasos de construcción de la imagen.
  
  
@@ -99,7 +100,6 @@ Algunos atributos relevantes del manifesto son:
 % 4.2.2 Software Components annotations
 %---------------------------------------------
 \subsection{Anotaciones de componentes de software}\label{s4.2.2}
-
 
 La descripción de los componentes de software es fundamental para realizar cuantificar la similitud entre dos o más ambientes computacionales.
 Un enfoque común para detectar los componentes de software guardar o detectar los comandos que realizan la instalación de software. Por ejemplo, la figura \ref{lst:tensorflow} muestra los comandos para instalar los componentes de la imagen TensorFlow. 
@@ -140,12 +140,7 @@ En este trabajo se utiliza Clair para detectar los componentes de software debid
 
 Además, como prueba de generalidad se extiende Clair para detectar los paquetes instalados por Conda en la imagen.  
 Sin embargo, Clair no cumple totalmente las necesidades para solucionar los problemas de anotación dado que Clair no considera múltiples detectores en la misma imagen y los componentes de software detectados son generados a partir de diferencias.
-Por ejemplo, si se supone una imagen que está compuesta de dos capas: A y B donde A es padre de B y Clair presenta dos detectores \texttt{Alpha} y \texttt{Beta}. 
-Donde el detector \texttt{Alpha} detecta componentes de software en el archivo \verb|/etc/a| y  \texttt{Beta} detecta componentes de software en el archivo \verb|/etc/b|
-
-Si en la capa A, \texttt{Alpha} lista el software \verb|1| en \verb|/etc/a| y \texttt{Beta} lista \verb|2| en  \verb|/etc/b|. Y luego, en la capa B, \texttt{Beta}  lista \verb|2| y \verb|3| en  \verb|/etc/b|
-
-El resultado de las diferencias será: 
+Por ejemplo, si se supone una imagen que está compuesta de dos capas: A y B donde A es padre de B y Clair presenta dos detectores \texttt{Alpha} y \texttt{Beta}. Donde el detector \texttt{Alpha} detecta componentes de software en el archivo \verb|/etc/a| y  \texttt{Beta} detecta componentes de software en el archivo \verb|/etc/b|. Si en la capa A, \texttt{Alpha} lista el software \verb|1| en \verb|/etc/a| y \texttt{Beta} lista \verb|2| en  \verb|/etc/b|. Y luego, en la capa B, \texttt{Beta}  lista \verb|2| y \verb|3| en  \verb|/etc/b|. El resultado de las diferencias será: 
 
 \begin{enumerate}
 	\item A añadió a \verb|1| y \verb|2|. Dado que observa el componentes de software en \verb|/etc/a| y \verb|/etc/b|
@@ -171,3 +166,5 @@ En la figura  \ref{fig:packages-pegasus} se muestra triples de algunos de los pa
       \caption[Paquetes y vulnerabilidades de la imagen Pegasus]{Vulnerabilidades y paquetes vulnerables de la imagen Pegasus}
     \label{fig:vulnerability-pegasus}
 \end{figure}
+
+\todo[inline]{termina los capítulos con un resumen de lo que has hecho, e introduciendo el siguiente, para que el lector siga con la curiosidad de qué viene después. Tienes que pensar también que el lector primero irá a la introducción del capítulo, después a las conclusiones de ese mismo capítulo y luego mirará el contenido si le interesa, tal y como pasa con el documento en general y como dice el libro Trees Maps and Theorems}
