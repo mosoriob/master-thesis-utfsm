@@ -13,8 +13,10 @@ Los materiales de workflow son: los datos, el código y la documentación. La do
 Además para entender los requisitos del workflow, se inspecciona la las anotaciones manuales generadas por WICUS \cite{santana2017reproducibility} para el workflow seleccionado.
 Luego, Para cada WMS, se construye una imagen estándar. En consecuencia, un investigador puede importar esta imagen e instalar los componentes de software relacionados con el workflow.
 Esto se puede conseguir utilizando la instrucción \texttt{FROM} de Dockerfile. Por ejemplo, el workflow SoyKB utiliza Pegasus como WMS. Por lo tanto, la imagen SoyKb importa la imagen Pegasus lo cual permite no almacenar copia de las capas de Pegasus por cada workflow.
-En caso que el WMSs no distribuya su software utilizando Docker, se construye las imágenes, los archivos necesarios como configuraciones y el DeploymentPlan (Dockerfile).\todo[inline]{cómo? no se supone que nosotros generamos esas anotaciones usando nuestra ontología que extiende la de wicus?}.  Para cada flujo de trabajo los archivos están disponibles en nuestros repositorios. \footnote{https://github.com/dockerpedia}.
-Además, cada DeploymentFile incluye información sobre la imagen utilizando el estándar de la Open Container Initiative \footnote{\url{https://www.opencontainers.org/}} Esta información es:
+En caso que el WMSs no distribuya su software utilizando Docker, se construye la imagen: esto incluye encontrar los componentes de software, las versiones necesarias de ellos, y las configuraciones requeridas. Lo mismo se realiza para cada workflow. 
+Finalmente, se construye un repositorio GitHub \footnote{\url{https://github.com/}}. para cada WMSs y workflows con los archivos requeridos: DockerFile, configuraciones y otros.
+
+Además, cada Dockerfile incluye información sobre la imagen utilizando el estándar de la Open Container Initiative \footnote{\url{https://www.opencontainers.org/}} Esta información es:
 
 \begin{description}
    \item[org.opencontainers.image.created:] fecha y hora en la que se construyó la imagen (string, fecha y hora según la definición de RFC 3339).
