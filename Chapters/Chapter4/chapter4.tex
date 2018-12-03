@@ -172,4 +172,22 @@ En la figura  \ref{fig:packages-pegasus} se muestra triples de algunos de los pa
     \label{fig:vulnerability-pegasus}
 \end{figure}
 
-\todo[inline]{termina los capítulos con un resumen de lo que has hecho, e introduciendo el siguiente, para que el lector siga con la curiosidad de qué viene después. Tienes que pensar también que el lector primero irá a la introducción del capítulo, después a las conclusiones de ese mismo capítulo y luego mirará el contenido si le interesa, tal y como pasa con el documento en general y como dice el libro Trees Maps and Theorems}
+En el capítulo, se ha expuesto las principales clases de la ontología propuesta para conceptualizar los recursos del ambiente computacional del experimento científico y lograr la conservación lógica de éste.
+
+Además, se ha expuesto los datos y meta datos disponibles en los sistemas de contenedores basados Docker. 
+
+Luego, se ha expuesto la importancia de las descripciones de los componentes de software y pasos de construcción.
+Y se presenta el sistema de anotación para obtener esas descripciones donde sus principales características son:
+\begin{enumerate}
+	\item Es un proceso automático que no requiere la anotación manual por parte de los investigadores.
+	\item No incluye ruido dado que no requiere de instalar nuevos componentes dentro del ambiente.
+	\item No requiere ejecutar el ambiente  computacional dado que  sólo lee archivos para obtener los componentes de software.
+	\item El sistema puede re usar análisis anteriores de las capas padres si éstas ya han sido analizadas.
+	\item El sistema puede extenderse a nuevos sistemas de paquetes como Conda.
+\end{enumerate}
+
+
+Considerando, el sistema anotador, los repositorios de imágenes de Docker y que las imágenes Docker son livianas. Se logra enfrentar ambos tipos de conservación de ambientes computacionales de experimentos científicos. 
+
+
+En el siguiente capítulo se aplica nuestro enfoque a diversos experimentos reales y se muestran los aciertos y problemas encontrados.
