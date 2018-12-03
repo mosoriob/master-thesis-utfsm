@@ -60,8 +60,14 @@ Permitiendo perfeccionar los procesos de conservación y reproducibilidad de amb
 %killing phrase
 En resumen, en este trabajo se utiliza, modifica e implementa nuevas herramientas construyendo un framework para automatizar el proceso de obtención de los requerimientos del ambiente computacional, para luego almacenar estas anotaciones según modelos semánticos. Finalmente, esta propuesta concluye que la utilización de estas anotaciones permite la reproducción y detección de problemas del ambiente computacional de un experimento científico.
 
-\subsection{Trabajo futuro}
+\section{Trabajo futuro}
 
-Trace las llamadas de sistemas
-Extensión del sistema a pip
-Extension del sistema a otros sistemas de containers
+Como continuación de este trabajo, se proponen tres siguientes extensiones.
+Primero, extender la detección de componentes software instalados por pip \footnote{\url{https://pypi.org/project/pip/}}. 
+Segundo, extender el sistema anotador a contenedor que utilicen Singularity \footnote{\url{https://www.sylabs.io/docs/}}.
+Tercero, mejorar la descripción de los componentes de software permitiendo mostrar el grafo dependencias y archivos instalados.
+Cuatro, implementar detección de eventos en la ejecución del workflows utilizando \emph{perf events} \footnote{\url{https://perf.wiki.kernel.org/index.php/Main_Page}} del Kernel de Linux.
+Permitiendo detectar cuáles son las funciones son ejecutadas por el workflow y los archivos abiertos durante el proceso.
+
+
+

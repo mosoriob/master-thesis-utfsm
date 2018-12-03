@@ -5,24 +5,23 @@
 %\todo[inline]{necesitas una introducción al capítulo, lo que vas a contar. Es lo mismo que pone en Trees Maps and theorems. Además, deberías empezar diciendo: esto es lo que hace un científico cuando construye y ejecuta un workflow de datos. No se entiende mucho esta sección.}
 
 
-En este capitulo introduce la experimentación para evaluar las hipótesis introducidas en el capítulo
+En este capítulo introduce la experimentación para evaluar las hipótesis introducidas en el capítulo
 \ref{sec:objetivos}. 
-Para ello se diseña y ejecuta un proceso de experimentación sobre un conjunto de workflows reales.
+Para ello se diseña y se ejecuta un proceso de experimentación sobre un conjunto de workflows reales.
 El proceso busca reproducir ambientes computacionales reales mediante el enfoque de conservación y el proceso de anotación propuesto. 
 En otras palabras, se busca evaluar la propuesta considerando que los workflows experimentales necesitan garantizar que exista suficiente información sobre los experimentos para que sea posible construirlos nuevamente por un tercero, replicando sus resultados sin ninguna información adicional del autor original ~\cite{garijo2013quantifying}.
-Por esta razón, se seleccionó un conjunto de experimentos computacionales representados por workflows. El conjunto de workflows incluye seis workflows de distintos dominios de la ciencia que utilizan tres sistemas de manejo de workflows científicos \emph{Scientific Workflow management Systems (WMS)} distintos.
-Luego, se anotan cada uno de los ambientes de computacionales de cada workflow y se reproduce el ambiente utilizando diferentes proveedores de Cloud y un ambiente local.
+Por esta razón, se seleccionó un conjunto de experimentos computacionales representados por workflows. El conjunto incluye cinco workflows de distintos dominios de la ciencia que utilizan tres sistemas de manejo de workflows científicos \emph{Scientific Workflow management Systems (WMS)} distintos.
+Luego, se anota cada uno de los ambientes de computacionales de cada workflow y se reproduce el ambiente utilizando diferentes proveedores de Cloud y un ambiente local.
 
-
-
-\section{Experimentos computacionales}\label{s5.1}
+\section{Construcción de imágenes}\label{s5.1}
 
 Para validar la propuesta y su aplicación en el contexto de workflows científicos, se ha seleccionado un subconjunto de workflows y sistemas de manejo de workflows científicos \emph{Scientific Workflow management Systems (WMS)}
 El subconjunto ha sido seleccionado bajo los criterios de: nivel de utilización de WMS, la diversidad de lenguajes utilizados en el conjunto, y disponibilidad de los materiales del workflow. 
 
 Los materiales de workflow son: los datos, el código y la documentación. La documentación permite el estudio de los componentes de software necesarios para la ejecución del ambiente. Y los datos y el código permiten la ejecución obtención de los resultados.
 Además para entender los requisitos del workflow, se inspecciona la las anotaciones manuales generadas por WICUS \cite{santana2017reproducibility} para el workflow seleccionado.
-Luego, Para cada WMS, se construye una imagen estándar. En consecuencia, un investigador puede importar esta imagen e instalar los componentes de software relacionados con el workflow.
+
+Para cada WMS, se construye una imagen estándar. En consecuencia, un investigador puede importar esta imagen e instalar los componentes de software relacionados con el workflow.
 Esto se puede conseguir utilizando la instrucción \texttt{FROM} de Dockerfile. Por ejemplo, si un workflow utiliza Pegasus como WMS. Por lo tanto, la imagen de workflow importará la imagen Pegasus lo cual permite no almacenar una copia de las capas de Pegasus por cada workflow y disminuir el uso de disco.
 En caso que el WMSs no distribuya su software utilizando Docker, se construye la imagen: esto incluye encontrar los componentes de software, las versiones necesarias de ellos, y las configuraciones requeridas. Lo mismo se realiza para cada workflow. 
 Finalmente, se construye un repositorio GitHub \footnote{\url{https://github.com/}}. para cada WMSs y workflows con los archivos requeridos: DockerFile, configuraciones y otros.
@@ -46,6 +45,14 @@ Además, cada Dockerfile incluye información sobre la imagen utilizando el est�
 \end{description}
 
 
+\section{Experimentos computacionales}\label{s5.1}
+
+
+Para la experimentación se ha seleccionado un conjunto de experimentos de computaciones, éste se compone de cinco experimentos provenientes de áreas de astronomía, biología, sismología y geología.
+Para la ejecución de estos experimentos se utilizaron tres WMSs: Pegasus~\cite{DBLP:journals/fgcs/DeelmanVJRCMMCS15}, dispel4py~\cite{DBLP:conf/eScience/FilgueiraKAKSS15} y WINGS~\cite{DBLP:journals/expert/GilRKGGMD11}. 
+Al continuación se introducen los experimentaciones computaciones con su respectivo workflow.
+
+
 \subsection{Pegasus}
 
 Pegasus~\cite{DBLP:journals/fgcs/DeelmanVJRCMMCS15} es un WMS capaz de gestionar flujos de trabajo compuestos por millones de tareas, registrando datos sobre la ejecución y resultados intermedios. 
@@ -57,8 +64,8 @@ Los principales requisitos de pegasus obtenidos al estudiar la documentación so
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=.5\textwidth]{Figures/pegasus-deps}
-\caption[Dependencias Pegasus]{Dependencias de Pegasus. En azul: dependencias necesarias y especificadas en el sistema de paquetes. En verde: necesarias pero no especificadas en el sistema de paquetes. En naranjas: dependencias recomendadas}
+\includegraphics[width=1\textwidth]{Figures/pegasus-deps}
+\caption[Dependencias Pegasus]{Dependencias de Pegasus. En gris: dependencias necesarias y especificadas en el sistema de paquetes. En amarillo: necesarias pero no especificadas en el sistema de paquetes. En verde: dependencias recomendadas}
 \label{fig:pegasus-deps}
 \end{figure}
 
@@ -127,7 +134,7 @@ Las figuras \ref{fig:montage-wicus} y \ref{fig:montage-mosorio} muestran las im�
 
 \subsection{dispel4py}
 
-dispel4py ~\cite{DBLP:conf/eScience/FilgueiraKAKSS15} es una biblioteca Python para describir workflow para aplicaciones intensivas de datos, que luego se traducen y ejecutan en plataformas distribuidas (por ejemplo, Apache Storm, clusters MPI, etc.).
+dispel4py~\cite{DBLP:conf/eScience/FilgueiraKAKSS15} es una biblioteca Python para describir workflow para aplicaciones intensivas de datos, que luego se traducen y ejecutan en plataformas distribuidas (por ejemplo, Apache Storm, clusters MPI, etc.).
 El paquete dispel4py ha sido obtenido del repositorio oficial \footnote{\url{https://github.com/rosafilgueira/dispel4py_workflows}}. 
 Para la instalación el paquete, se utiliza Conda, un gestor de paquetes, dependencias y entornos para lenguajes Python, R, Ruby, Lua, Scala, Java, JavaScript, C/ C++, FORTRAN y que es ampliamente utilizado en entornos de \textit{Jupyter notebook}. 
 Los principales requisitos de dispel4py obtenidos de la documentación son: Python2.7, git y  Python-setuptools
@@ -171,7 +178,7 @@ Nuestra investigación inicial sobre las dependencias para la ejecución indica 
 
 \subsection{WINGS}
 
-WINGS es un sistema de flujo de trabajo semántico que ayuda a los científicos en el diseño de experimentos computacionales. 
+WINGS~\cite{DBLP:journals/expert/GilRKGGMD11} es un sistema de flujo de trabajo semántico que ayuda a los científicos en el diseño de experimentos computacionales. 
 En WINGS, se especifica cómo deben ser procesados los conjuntos de datos por una serie de componentes del software en una configuración particular.
 WINGS a diferencia de los otros sistemas de workflows utiliza imágenes Docker para su distribución. Pese a que WINGS presenta las imágenes de Docker, estas imágenes son una caja negra y no es posible obtener los componentes de software.
 La investigación inicial sobre las dependencias indica que los principales requisitos de WINGS son: Java 1.8, Tomcat 8.5, Docker. La figura \ref{fig:wings-deps} muestra en mayor detalles las dependencias especificadas tanto por el sistema de paquetes o documentación.
@@ -317,8 +324,8 @@ Para obtener las anotaciones, se propone e implementa usar Clair y construir un 
 
 Para reproducir el entorno, el sistema obtiene el repositorio asociado a la imagen y construye la nueva imagen. La URL del repositorio y el cambio asociado (representado por un VCS commit) se pueden obtener por dos métodos: consultando nuestras anotaciones o usando un comando Docker. El listado \ref{lst:inspect_command} muestra las etiquetas de la imagen de flujo de trabajo SoyKB.
 
-\begin{figure*}
-\begin{lstlisting}[caption={Inspect image annotations},label={lst:inspect_command},language=bash]
+\begin{figure*}[H]
+\begin{lstlisting}[caption={Inspeccionar las anotaciones de una imagen},label={lst:inspect_command},language=bash]
 root@docker-instance:~# docker inspect \ 
     --format='{{json .Config.Labels}}' \ 
     dockerpedia/soykb:latest
@@ -375,12 +382,14 @@ SELECT * WHERE {
     
 \section{Resultados y discusión}\label{s5.4}
 Se logró ejecutar los workflows utilizando imágenes Docker sobre sus plataformas correspondientes.
+Sin embargo, no fue un tarea simple. La información de los componentes de software para los cincos workflows no se estaba disponible o era incompleta . Por lo que encontrar los componentes necesarios para construir la imagen fue una tarea forense, donde se tuvo que realizar múltiples ejecuciones con distintos componentes de software hasta lograr la ejecución. 
+
 Todas las ejecuciones se compararon con la imagen VM predefinida, donde ya existía un entorno de ejecución. Los resultados muestran que los ambientes de ejecución de contenedores son capaces de ejecutar completamente sus workflow relacionados. Se  comprobó que no sólo los workflows se ejecutan con éxito, sino también que los resultados son correctos y equivalentes a través de los datos de salida producidos. 
 
 Por otra parte, los resultados experimentales muestran que nuestra propuesta puede detectar automáticamente los componentes del software, las vulnerabilidades relacionadas, los pasos de construcción y los metadatos específicos de los experimentos científicos en forma de imágenes Docker. 
 Además, los resultados muestran que es posible extender Clair para anotar a otros gestores de paquetes. 
 
-Las anotaciones generadas por nuestro enfoque permiten comparar los componentes de software entre dos o más entornos. Esta función se puede utilizar como herramienta de depuración cuando un entorno reproducido no funciona.
+Aún mas, las anotaciones generadas por nuestro enfoque permiten comparar los componentes de software entre dos o más entornos. Esta función se puede utilizar como herramienta de depuración cuando un entorno reproducido no funciona.
 Por ejemplo, en agosto de 2018, se construyó la imagen del workflow SoyKB, y se pudo ejecutar el workflow con éxito. Sin embargo, se reconstruyó una nueva imagen en noviembre con el mismo DeploymentPlan y no se pudo ejecutar el workflow con éxito.
 
 
@@ -390,7 +399,7 @@ Se utilizaron las anotaciones de los componentes de software dentro de ambas im�
     \item Noviembre: Pegasus 4.9 y Java 1.8
 \end{itemize}
 
-Luego se analizó el código y la documentación de SoyKB y las dependencias de Pegasus 4.9. Como resultado, se obtuvo las gráficas de dependencia mostradas en la figura \ref{fig:pegasus49}.  Los gráficos de dependencia muestran que el paquete Pegasus 4.9 y SoyKB no son compatibles debido a sus requerimientos de versión Java.
+Luego se analizó el código y la documentación de SoyKB y las dependencias de Pegasus 4.9. Como resultado, sé obtuvo las gráficas de dependencia mostradas en la figura \ref{fig:pegasus49}.  Los gráficos de dependencia muestran que el paquete Pegasus 4.9 y SoyKB no son compatibles debido a sus requerimientos de versión Java.
 
 Y construyó una nueva imagen instalando Pegasus 4.8, y se obtuvo los gráficos de dependencia que se muestran en la figura \ref{fig:pegasus48}. Aquí, el gráfico no tiene un conflicto y se pudo ejecutar el workflow con éxito.
 
@@ -416,9 +425,7 @@ La nueva imagen fue nombrada como: \verb|pegasus_workflow_images:4.8.5|
         \label{fig:dependencies-graph}
 \end{figure*}
 
-La razón principal de los trabajos anteriores para evitar la conservación física era la gran demanda de almacenamiento de máquinas virtuales. 
-Los resultados de la comparación del uso del disco muestran que hay una disminución del 64,2\% para la imagen Pegasus y del 41,5\% para la dispel4py. La tabla \ref{storage-reduce} muestra la diferencia para el sistema de flujo de trabajo Pegasus y dispel4py.
-
+Considerando que la razón principal de los trabajos anteriores para evitar la conservación física era la gran demanda de almacenamiento de máquinas virtuales. Se realizó una comparación  del uso del disco, los resultados muestran una disminución del 64,2\% para la imagen Pegasus y del 41,5\% para la dispel4py. La tabla \ref{storage-reduce} muestra la diferencia para el sistema de flujo de trabajo Pegasus y dispel4py.
 
 \begin{table}[t]
 \centering
@@ -431,3 +438,10 @@ Container      & 690          & 2500 \\ \hline
 \caption[Comparación de uso de disco entre VMs y contenedores]{Uso de disco de las imágenes pegasus y dispel4py utilizando máquinas virtuales y contenedores}
 \label{storage-reduce}
 \end{table}
+
+
+En este capítulo se ha introducido cada uno de los WMSs y workflows correspondientes y se ha descrito el proceso de creación de las imágenes para uno de ellos.
+Luego, se expone que es posible describir los componentes de software y pasos de los construcción y utilizar esas descripciones para reproducir el ambiente computacional requerido. 
+Asimismo, se muestran el framework completo propuesto y cómo las anotaciones y los modelos semánticos permiten la resolución un problema real producido por cambios los componentes de software en un ambiente computacional.
+ 
+En el siguiente capítulo se muestra 

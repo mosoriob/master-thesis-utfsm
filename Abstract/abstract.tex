@@ -1,5 +1,13 @@
-% ************************** Thesis Abstract *****************************
-% Use `abstract' as an option in the document class to print only the titlepage and the abstract.
-\begin{abstract}
-This is where you write your abstract ...
-\end{abstract}
+
+
+\section*{Resumen}
+
+
+Desde el año 2000, la utilización de tecnologías de virtualización han aumentado rápidamente y a su vez el lanzamiento de nuevas
+alternativas. Docker ha sido una de estas alternativas: siendo usado por empresas como Google, Spotify, GILT, yelp, RackSpace, Ebay entre otras. 
+Por otra parte, es común que las aplicaciones necesiten escalables y ser altamente disponibles para poder satisfacer la demanda de los usuarios. Sin embargo, Docker Engine no tiene la funcionalidad de interactuar con un cluster de nodos, solamente puede comunicarse con un nodo, es por ello la necesidad de una solución para orquestar y comunicar los \textit{containers}. Kubernetes es un orquestador \textit{open source} de \textit{Docker containers } encabezado y utilizado en producción por Google. En este trabajo se realiza una evaluación a algunos aspectos de Kubernetes para ser alojado en nube. Esta evaluación se realizará a través de una implementación de Kubernetes en dos ambientes con el objetivo de verificar de manera empírica las ventajas y desventajas de este tipo de sistemas y proponer trabajos futuros. 
+ %
+\section*{Abstract}
+% 
+Experiment reproducibility is the ability to run an experiment with the introduction of changes to it and getting results that are consistent with the original ones. To allow reproducibility, the scientific community encourages researchers to publish descriptions of the these experiments. However, these recommendations do not include an automated way for creating such descriptions: normally scientists have to annotate their experiments in a semi automated way. In this paper we propose a system to automatically describe computational environments used in in-silico experiments. We propose to use Operating System (OS) virtualization (containerization) for distributing software experiments throughout software images and an annotation system that will allow to describe these software images. The images are a minimal version of an OS (container) that allow the deployment of multiple isolated software packages within it. 
+We propose the usage of Docker for the conservation of the scientific environment and a framework to capture the valuable knowledge about the resources of a computational experiment running on a Docker Container. As a result, we are facing the logical and physical conservation challenge. 
