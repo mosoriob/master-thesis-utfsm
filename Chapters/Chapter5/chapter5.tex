@@ -5,26 +5,27 @@
 %\todo[inline]{necesitas una introducción al capítulo, lo que vas a contar. Es lo mismo que pone en Trees Maps and theorems. Además, deberías empezar diciendo: esto es lo que hace un científico cuando construye y ejecuta un workflow de datos. No se entiende mucho esta sección.}
 
 
-En este capítulo introduce la experimentación para evaluar las hipótesis introducidas en el capítulo
+En este capítulo se introduce la experimentación para evaluar las hipótesis introducidas en el capítulo
 \ref{sec:objetivos}. 
 Para ello se diseña y se ejecuta un proceso de experimentación sobre un conjunto de workflows reales.
 El proceso busca reproducir ambientes computacionales reales mediante el enfoque de conservación y el proceso de anotación propuesto. 
-En otras palabras, se busca evaluar la propuesta considerando que los workflows experimentales necesitan garantizar que exista suficiente información sobre los experimentos para que sea posible construirlos nuevamente por un tercero, replicando sus resultados sin ninguna información adicional del autor original ~\cite{garijo2013quantifying}.
-Por esta razón, se seleccionó un conjunto de experimentos computacionales representados por workflows. El conjunto incluye cinco workflows de distintos dominios de la ciencia que utilizan tres sistemas de manejo de workflows científicos \emph{Scientific Workflow management Systems (WMS)} distintos.
-Luego, se anota cada uno de los ambientes de computacionales de cada workflow y se reproduce el ambiente utilizando diferentes proveedores de Cloud y un ambiente local.
+En otras palabras, se busca evaluar la propuesta considerando que los workflows experimentales necesitan garantizar que exista suficiente información sobre los experimentos para permitir la reconstrucción por un tercero, replicando sus resultados sin ninguna información adicional del autor original ~\cite{garijo2013quantifying}.
+Por esta razón, se seleccionó un conjunto de experimentos computacionales representados por workflows. El conjunto incluye cinco workflows de distintos dominios de la ciencia que utilizan tres sistemas de manejo de workflows científicos (WMSs) distintos.
+Luego, se anota el ambiente de computacional de cada workflow y es reproducido utilizando diferentes proveedores de Cloud y un ambiente local.
 
 \section{Construcción de imágenes}\label{s5.1}
 
-Para validar la propuesta y su aplicación en el contexto de workflows científicos, se ha seleccionado un subconjunto de workflows y sistemas de manejo de workflows científicos \emph{Scientific Workflow management Systems (WMS)}
+Para validar la propuesta y su aplicación en el contexto de workflows científicos, se ha seleccionado un subconjunto de workflows y sistemas de manejo de workflows científicos (WMS) 
 El subconjunto ha sido seleccionado bajo los criterios de: nivel de utilización de WMS, la diversidad de lenguajes utilizados en el conjunto, y disponibilidad de los materiales del workflow. 
 
-Los materiales de workflow son: los datos, el código y la documentación. La documentación permite el estudio de los componentes de software necesarios para la ejecución del ambiente. Y los datos y el código permiten la ejecución obtención de los resultados.
-Además para entender los requisitos del workflow, se inspecciona la las anotaciones manuales generadas por WICUS \cite{santana2017reproducibility} para el workflow seleccionado.
+Los materiales de workflow son: los datos, el código y la documentación. La documentación permite el estudio de los componentes de software necesarios para la ejecución del ambiente. Y los datos y el código permiten la ejecución y obtención de los resultados.
+Además para entender los requisitos del workflow, se inspecciona la las anotaciones manuales generadas por WICUS \cite{santana2017reproducibility} para los workflows comúnes.
 
 Para cada WMS, se construye una imagen estándar. En consecuencia, un investigador puede importar esta imagen e instalar los componentes de software relacionados con el workflow.
-Esto se puede conseguir utilizando la instrucción \texttt{FROM} de Dockerfile. Por ejemplo, si un workflow utiliza Pegasus como WMS. Por lo tanto, la imagen de workflow importará la imagen Pegasus lo cual permite no almacenar una copia de las capas de Pegasus por cada workflow y disminuir el uso de disco.
+Esto se puede conseguir utilizando la instrucción \texttt{FROM} de Dockerfile. Por ejemplo, si un experimento utiliza Pegasus como WMS, la imagen de experimento importará la imagen Pegasus.
+Esto permite no almacenar una copia de las capas de Pegasus por cada workflow y disminuir el uso de disco.
 En caso que el WMSs no distribuya su software utilizando Docker, se construye la imagen: esto incluye encontrar los componentes de software, las versiones necesarias de ellos, y las configuraciones requeridas. Lo mismo se realiza para cada workflow. 
-Finalmente, se construye un repositorio GitHub \footnote{\url{https://github.com/}}. para cada WMSs y workflows con los archivos requeridos: DockerFile, configuraciones y otros.
+Finalmente, se construye un repositorio Git en GitHub \footnote{\url{https://github.com/}} para cada WMSs y workflows con los archivos requeridos: DockerFile, configuraciones y otros.
 
 Además, cada Dockerfile incluye información sobre la imagen utilizando el estándar de la Open Container Initiative \footnote{\url{https://www.opencontainers.org/}} Esta información es:
 
@@ -49,23 +50,22 @@ Además, cada Dockerfile incluye información sobre la imagen utilizando el est�
 
 
 Para la experimentación se ha seleccionado un conjunto de experimentos de computaciones, éste se compone de cinco experimentos provenientes de áreas de astronomía, biología, sismología y geología.
-Para la ejecución de estos experimentos se utilizaron tres WMSs: Pegasus~\cite{DBLP:journals/fgcs/DeelmanVJRCMMCS15}, dispel4py~\cite{DBLP:conf/eScience/FilgueiraKAKSS15} y WINGS~\cite{DBLP:journals/expert/GilRKGGMD11}. 
+Y se utilizaron tres WMSs: Pegasus~\cite{DBLP:journals/fgcs/DeelmanVJRCMMCS15}, dispel4py~\cite{DBLP:conf/eScience/FilgueiraKAKSS15} y WINGS~\cite{DBLP:journals/expert/GilRKGGMD11}. 
 Al continuación se introducen los experimentaciones computaciones con su respectivo workflow.
 
 
 \subsection{Pegasus}
 
 Pegasus~\cite{DBLP:journals/fgcs/DeelmanVJRCMMCS15} es un WMS capaz de gestionar flujos de trabajo compuestos por millones de tareas, registrando datos sobre la ejecución y resultados intermedios. 
-Cuando se producen errores, Pegasus intenta recuperarse reintentando tareas, reintentando todo el flujo de trabajo, proporcionando puntos de control a nivel de flujo de trabajo, re-mapeando partes del flujo de trabajo. Pegasus lleva un registro de lo que se ha hecho (procedencia), incluyendo las ubicaciones de los datos utilizados y producidos, y qué software se utilizó con qué parámetros.
 Pegasus lee las descripciones del flujo de trabajo de los archivos DAX. El término DAX es la abreviatura de ``Directed Acyclic Graph in XML". DAX es un formato de archivo XML que tiene sintaxis para expresar trabajos, argumentos, archivos y dependencias. Para crear un DAX es necesario escribir código para un generador de DAX.\\
 Pegasus opcionalmente utiliza HTCondor como administrador de tareas. Por lo tanto, se construye dos versiones para la imagen de Pegasus; una versión tiene instalado el paquete condor y otra sin él. La justificación de decisión recae en permitir a los científicos utilizar una imagen simple si es necesario.
 El paquete Pegasus ha sido obtenido del repositorio oficial~\footnote{\url{http://download.pegasus.isi.edu/wms/download/debian}}.
-Los principales requisitos de pegasus obtenidos al estudiar la documentación son: Java (la versión Java depende de la versión pegasus), Python y Perl. La figura \ref{fig:pegasus-deps} muestra las dependencias especificadas tanto por el sistema de paquetes y documentación.
+Y  al estudiar la documentación, se detectó los siguientes requisitos: Java (la versión Java depende de la versión pegasus), Python y Perl. La figura \ref{fig:pegasus-deps} muestra las dependencias especificadas tanto por el sistema de paquetes y documentación.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=1\textwidth]{Figures/pegasus-deps}
-\caption[Dependencias Pegasus]{Dependencias de Pegasus. En gris: dependencias necesarias y especificadas en el sistema de paquetes. En amarillo: necesarias pero no especificadas en el sistema de paquetes. En verde: dependencias recomendadas}
+\caption[Dependencias Pegasus]{Dependencias de Pegasus. En gris: dependencias especificadas en el sistema de paquetes. En amarillo: necesarias pero no especificadas en el sistema de paquetes. En verde: dependencias recomendadas}
 \label{fig:pegasus-deps}
 \end{figure}
 
@@ -83,24 +83,25 @@ La figura \ref{fig:soykb} muestra una representación gráfica del workflow, don
 \caption[Representación workflow: SoyKb]{Representación entregada por Pegasus del workflow SoyKB.}\label{fig:soykb}
 \end{figure}
 
-Al estudiar la documentación de workflow SoyKB, se han obtenidos los siguientes componentes de software, que se clasifican en dos tipos: propio (en amarillo) y de terceros (en verde). Los componentes principales son: bwa, gatk y picard y el software de tercero java-1.7.0
-
-\begin{figure}[t]
+Al estudiar la documentación de workflow SoyKB, se han obtenidos los componentes de software expuestos en la figura \ref{fig:soykb-deps}. Esto se clasifican en dos tipos: propio (en amarillo) y de terceros (en verde). Los componentes principales son: bwa, gatk y picard y el software de tercero java sin información dela versión
+\begin{figure}[h]
 \centering
-\includegraphics[width=.7\textwidth]{Figures/soykb-deps}
+\includegraphics[width=.5\textwidth]{Figures/soykb-deps}
 \caption[Dependencias workflow SoyKb]{Dependencias de SoyKb. En amarillo: software propio y en verde software de terceros}\label{fig:soykb-deps} 
 \end{figure}
 
-La evaluación de los resultados se realizó de forma manual al igual que en \cite{santana2017reproducibility} debido a los pasos aleatorios del workflow. La metodología de la verificación fue la revisión de la estructura de los resultados, el tamaño de los archivos, número de líneas y la inexistencia de errores.
+La evaluación de los resultados se realizó de forma manual al igual que en \cite{santana2017reproducibility} debido a los pasos aleatorios del workflow. La metodología de la verificación fue la revisión de la estructura de los resultados, el tamaño de los archivos, número de líneas y la inexistencia de errores. 
+Dentro de los resultados se encontraron archivos del tipo VCF que es un formato de archivo de texto que contiene líneas y cada una de las cuales contiene información sobre una posición en el genoma. Según documentación de Pegasus estos son archivos de salida del workflow~\footnote{\url{https://github.com/pegasus-isi/PGen-GenomicVariations-Workflow}}.
+Por lo tanto, se realizo una comparación de los archivos y estos no tuvieron diferencias
 La imagen se encuentran disponibles en DockerHub ~\cite{soykb-image} y los resultados se encuentran disponibles en ~\cite{soykb-results}
 
 \subsubsection{Montage}
 
-Montage es un conjunto de herramientas creadas por \textit{NASA Infrared Processing and Analysis Center (IPAC)}, permitiendo generar bajo demanda mosaicos de imágenes astronómicas personalizadas, se utilizan archivos de entrada que cumplen con el estándar del Sistema de Transporte Flexible de Imágenes (FITS) y que contienen datos de imágenes registrados en proyecciones que cumplen con los estándares del Sistema Mundial de Coordenadas (WCS).
+Montage es un conjunto de herramientas creadas por \textit{NASA Infrared Processing and Analysis Center (IPAC)} permitiendo generar bajo demanda mosaicos de imágenes astronómicas personalizadas, se utilizan archivos de entrada que cumplen con el estándar del Sistema de Transporte Flexible de Imágenes (FITS) y que contienen datos de imágenes registrados en proyecciones que cumplen con los estándares del Sistema Mundial de Coordenadas (WCS).
 
 La figura \ref{fig:montage} entregada por Pegasus ilustra el workflow Montage. Cada uno de los nodos de la figura es un software binario que generan la imagen final.
 
-Debido a que el software es un binario, no se encuentra empaquetado. Por lo tanto fue descargado de la fuente. Las direcciones de descargas se encuentran en el archivo de DockerFile~\cite{montage-image}
+Debido a que el software es un binario, no se encuentra empaquetado. Por lo tanto fue descargado desde la fuente. Las direcciones de descargas se encuentran en el archivo de DockerFile~\cite{montage-image}
 
 
 \begin{figure}[t]
@@ -109,9 +110,9 @@ Debido a que el software es un binario, no se encuentra empaquetado. Por lo tant
 \caption[Representación workflow: Montage]{Representación entregada por Pegasus del workflow Montage. Cada uno de los nodos es una operación y la leyenda indica el nombre de la operación.}\label{fig:montage}
 \end{figure}
 
-Dado que los resultados de Montage son imágenes se utiliza la herramienta de hash perceptual \footnote{\url{http://phash.org}} para realizar la comparación entre la imagen reproducida (imagen del cielo de 0,1 grados) frente a la original.
-Como resultado, se obtiene un factor de similitud de 1,0 (de 1,0) con un umbral de 0,85.
-Las figuras \ref{fig:montage-wicus} y \ref{fig:montage-mosorio} muestran las imágenes resultantes y los archivos resultantes en formato FITS se encuentran en el repositorio de DockerPedia ~\cite{montage-results}. 
+Dado que los resultados de Montage son imágenes, se utiliza la herramienta de hash perceptual \footnote{\url{http://phash.org}} para realizar la comparación entre la imagen reproducida (imagen del cielo de 0,1 grados) frente a la original.
+Como resultado, se obtiene un factor de similitud de 1,0 (de 1,0).
+Las figuras \ref{fig:montage-wicus} y \ref{fig:montage-mosorio} muestran las imágenes resultantes y los archivos resultantes en formato FITS se encuentran en el repositorio ~\cite{montage-results}. 
 La imagen se encuentran disponibles en DockerHub ~\cite{montage-image}
 
 \begin{figure*}[t]
@@ -158,17 +159,18 @@ El workflow primero lee el archivo de inicio que contiene la declinación y asce
 
 Nuestra investigación inicial sobre las dependencias para la ejecución de Internal extinction muestra que el software principal requeridos es el siguiente:  \verb|requests|, \verb|python=|, \verb|numpy| y \verb|astropy|
 
+
+\todo{comparar}
 La imagen se encuentran disponibles en DockerHub ~\cite{internal-image} y los resultados se encuentran disponibles en ~\cite{internal-results}
 
 
 \subsubsection{Seismic Ambient Noise Cross-Correlation}
 \textit{Seismic Ambient Noise Cross-Correlation workflow} (o xcorr workflow) es parte del proyecto \textit{Virtual Earthquake and seismology Research Community e-science environment in Europe} (VERCE). 
-El objetivo del workflow es la previsión de riesgos producidos por terremotos y erupciones volcánicas. Estos eventos en ciertos casos van precedidos o acompañados de cambios en las propiedades geofísicas de la Tierra, como la velocidad de las olas o la velocidad de los eventos. 
-
+El objetivo del workflow es la previsión de riesgos producidos por terremotos y erupciones volcánicas. Estos eventos en ciertos casos van precedidos o acompañados de cambios en las propiedades geofísicas de la Tierra, como la velocidad de las olas.
 Para lograr desarrollo de métodos fiables de evaluación de riesgos para estas amenazas se requiere un análisis en tiempo real de los datos sísmicos y un pronóstico verdaderamente prospectivo y pruebas para reducir los sesgos.
 
-\texttt{xcorr} logra lo anterior a través de dos etapas, la primera etapa es un pre-procesamiento de series de tiempo de una estación sísmica llamadas trazas, en esta etapa se realiza una serie de tratamientos y el procesamiento de cada traza es independiente del procesamiento de otras trazas, haciendo que esta fase sea paralela. 
-Luego la segunda etapa empareja todas las estaciones y calcula la correlación cruzada para cada par. La figura \ref{fig:xcorr} muestra los pasos del workflow.
+\texttt{xcorr} logra lo anterior a través de dos etapas, la primera etapa es un pre-procesamiento de series de tiempo de una estación sísmica llamadas trazas, en esta etapa se realiza una serie de tratamientos y el procesamiento de cada traza que es independiente de las otras, haciendo que esta fase sea paralela. 
+Luego la segunda etapa se empareja todas las estaciones y calcula la correlación cruzada para cada par. La figura \ref{fig:xcorr} muestra los pasos del workflow.
 
 
 \begin{figure}[t]
@@ -180,12 +182,14 @@ Luego la segunda etapa empareja todas las estaciones y calcula la correlación c
 
 Nuestra investigación inicial sobre las dependencias para la ejecución indica que los componentes de software necesarios son: \verb|python|, \verb|obspy| y \verb|numpy|
 
-\todo{link: resultado}
+Respecto a los resultados, las ejecuciones en máquina virtual y contenedores obtuvieron el mismo resultado. 
+
+La imagen se encuentra disponible en DockerHub~\cite{xcorr-image} y los resultados en GitHub~\cite{xcorr-results}.
 
 \subsection{WINGS}
 
 WINGS~\cite{DBLP:journals/expert/GilRKGGMD11} es un sistema de flujo de trabajo semántico que ayuda a los científicos en el diseño de experimentos computacionales. 
-En WINGS, se especifica cómo deben ser procesados los conjuntos de datos por una serie de componentes del software en una configuración particular.
+En WINGS, se especifica cómo deben ser procesados los conjuntos de datos por una serie de componentes en una configuración particular.
 WINGS a diferencia de los otros sistemas de workflows utiliza imágenes Docker para su distribución. Pese a que WINGS presenta las imágenes de Docker, estas imágenes son una caja negra y no es posible obtener los componentes de software.
 La investigación inicial sobre las dependencias indica que los principales requisitos de WINGS son: Java 1.8, Tomcat 8.5, Docker. La figura \ref{fig:wings-deps} muestra en mayor detalles las dependencias especificadas tanto por el sistema de paquetes o documentación.
 
@@ -194,8 +198,6 @@ La investigación inicial sobre las dependencias indica que los principales requ
 \includegraphics[width=.8\textwidth]{Figures/wings-deps}
 \caption{Dependencias de WINGS}\label{fig:wings-deps}
 \end{figure}
-
-Las imágenes se encuentran disponibles en DockerHub~\footnote{\url{https://hub.docker.com/r/dockerpedia/wings/}}
 
 
 \subsubsection{MODFLOW-NWT}
@@ -211,7 +213,7 @@ El USGS MODFLOW-NWT es una formulación de Newton-Raphson para MODFLOW-2005 con 
 \end{figure}
 
 
-La figura \ref{fig:modflow} muestra la estructura principal del workflow, desarrollado con pipeline compuesto por tres pasos. El proceso inicia leyendo el modelo a utilizar. Luego, el archivo de zona se usa para especificar arreglos de zonas que van usarse y finalmente se genera una visualización que muestra la cantidad de millones de galones por día en zona. Las figuras \ref{fig:modflow-original} y \ref{fig:modflow-reproduced} muestran los resultados generados por el ambiente original y reproducido respectivamente.
+La figura \ref{fig:modflow} muestra la estructura principal del workflow, desarrollado como un workflow compuesto por tres pasos. El proceso inicia leyendo el modelo a utilizar. Luego, el archivo de zona se usa para especificar arreglos que van usarse y finalmente se genera una visualización que muestra la cantidad de millones de galones por día en zona. Las figuras \ref{fig:modflow-original} y \ref{fig:modflow-reproduced} muestran los resultados generados por el ambiente original y reproducido respectivamente.
 
 \begin{figure*}[t]
     \centering
@@ -242,9 +244,9 @@ La figura \ref{fig:modflow} muestra la estructura principal del workflow, desarr
 %-----------------------------------------------
 \section{Conservación física}\label{s5.2}
 
-Todas las imágenes son publicadas con su correspondiente Dockerfile y cualquier usuario puede inspeccionarlas y mejorarlas. Las imágenes puede ser encontradas en DockerHub \footnote{https://hub.docker.com/u/dockerpedia/} y GitHub \footnote{\url{https://github.com/dockerpedia}}. 
+Todas las imágenes son publicadas con su correspondiente Dockerfile y cualquier usuario puede inspeccionarlas y mejorarlas. Las imágenes puede ser encontradas en DockerHub \footnote{https://hub.docker.com/u/dockerpedia/}\cite{xcorr-image,internal-image,soykb-image,montage-image,wings-image}  y GitHub \footnote{\url{https://github.com/dockerpedia}} \cite{xcorr-results,internal-results,soykb-results,montage-results,wings-results}. 
 
-Para evaluar la conservación física se utiliza tres proveedores diferentes: DigitalOcean, Google Cloud y un local. La figura de \ref{image-env} presenta una descripción de las características de los ambientes    
+Para evaluar la reproducibilidad del ambiente computacional se utiliza tres proveedores diferentes: DigitalOcean, Google Cloud y un local. La figura de \ref{image-env} presenta una descripción de las características de los ambientes    
 
 \begin{table}[t]
 \centering
@@ -301,9 +303,9 @@ Para evaluar si las imágenes Docker son livianas y almacenables, se construyero
 %-----------------------------------------------
 \section{Conservación lógica}\label{s5.3}
 
-A través de las anotaciones realizadas, se busca describir los ambientes computacionales en forma automática, comparar las diferencias entre dos ambientes y construir un ambiente computacional similar que permita reproducir la ejecución del workflow. 
+A través de las anotaciones realizadas, se busca describir los ambientes computacionales en forma automática, comparar las diferencias entre dos ambientes y construir un ambiente computacional similar que permita la ejecución del workflow. 
 
-Para ello, se anota de automática los workflows con nuestra herramienta, las anotaciones están agrupadas por: pasos de construcción y componentes de software. 
+Para ello, se anota de manera automática los workflows con nuestra herramienta, las anotaciones están agrupadas por: pasos de construcción y componentes de software. 
 
 Para evaluar la calidad de las anotaciones se utilizan dos experimentos.
 
@@ -357,8 +359,7 @@ La figura \ref{lst:inspect_result} muestra algunas de las etiquetas de la imagen
 \end{lstlisting}
 \end{figure*}
 
-
-Para evaluar si los entornos son similares, comparamos ambas imágenes utilizando el lenguaje de consulta SPARQL 1.1. El experimento fue un caso real en el que una imagen podía ejecutar el flujo de trabajo y la otra no. 
+Para evaluar si los entornos son similares, comparamos ambas imágenes utilizando el lenguaje de consulta SPARQL 1.1. El experimento fue un caso real que permitió detectar un problema en la ejecución del workflow SoyKB 
 La figura \ref{lst:compare_query} muestra la consulta para identificar los componentes diferentes de software entre dos imágenes y la figura \ref{lst:compare_query_2} muestra muestra la consulta para identificar los componentes iguales de software entre dos imágenes.
 \begin{figure*}
 \begin{lstlisting}[caption={¿Cuáles son los diferentes componentes entre dos imágenes?},label={lst:compare_query},language=sparql]
@@ -388,8 +389,8 @@ SELECT * WHERE {
     
 \section{Resultados y discusión}\label{s5.4}
 Se logró ejecutar los workflows utilizando imágenes Docker sobre sus plataformas correspondientes.
-Sin embargo, no fue un tarea simple. La información de los componentes de software para los cincos workflows no se estaba disponible o era incompleta . Por lo que encontrar los componentes necesarios para construir la imagen fue una tarea forense, donde se tuvo que realizar múltiples ejecuciones con distintos componentes de software hasta lograr la ejecución. 
-
+Sin embargo, no fue un tarea simple. La información de los componentes de software para los cincos workflows no se encontraba disponible o era incompleta. Por lo que encontrar los componentes necesarios para construir la imagen fue una tarea forense, donde se tuvo que realizar múltiples ejecuciones con distintos componentes de software hasta lograr la ejecución. 
+Lo cual no es una tarea trivial inclusive para expertos de área de las ciencias de la computación.
 Todas las ejecuciones se compararon con la imagen VM predefinida, donde ya existía un entorno de ejecución. Los resultados muestran que los ambientes de ejecución de contenedores son capaces de ejecutar completamente sus workflow relacionados. Se  comprobó que no sólo los workflows se ejecutan con éxito, sino también que los resultados son correctos y equivalentes a través de los datos de salida producidos. 
 
 Por otra parte, los resultados experimentales muestran que nuestra propuesta puede detectar automáticamente los componentes del software, las vulnerabilidades relacionadas, los pasos de construcción y los metadatos específicos de los experimentos científicos en forma de imágenes Docker. 
