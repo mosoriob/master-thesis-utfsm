@@ -130,8 +130,6 @@ apt-get install -y --no-install-recommends \
 
 El enfoque detectaría los componentes: \verb|build-essential|, \verb|curl|, \verb|libfreetype6-dev|, \verb|libhdf5-serial-dev|, \verb|libpng12-dev|, \verb|libzmq3-dev|, \verb|pkg-config|, \verb|python|, \verb|python-dev|, \verb|rsync|, \verb|software-properties-common| y  \verb|unzip|. Sin embargo, este enfoque no obtiene información sobre las versiones o las dependencias del software. Utilizando el  enfoque propuesto, se puede terminar que el línea anterior instala 184 paquetes.
 
-
-
 Otro enfoque  para lograr la anotación de los componentes de software es utilizar los gestores de paquetes del sistema. Los gestores que paquetes se clasifican en dos tipos: gestor de paquetes del tipo sistema y general:
 
 \begin{description}
@@ -155,17 +153,39 @@ Por ejemplo, si se supone una imagen que está compuesta de dos capas: A y B don
 Pero si \verb|/etc/a| no tuvo cambios, el archivo no se ve incluye en la capa hija. Y no significa que el \verb|1| fuese removido. 
 La casual del problema es que Clair añade y remueve paquetes sin considerar los detectores que detectaron los componentes de software. 
 Consecuentemente, en esta propuesta se utiliza una copia del proyecto Clair que discrimina según el sistema de paquete que instaló el componente para permitir múltiples sistemas de paquetes de la imagen. El proyecto se encuentra disponible en el repositorio de DockerPedia \footnote{\url{https://github.com/dockerpedia/clair}}.
+\begin{figure*}[h]
+	\begin{lstlisting}[caption={Proceso de obtención de las descripciones},label={lst:annotador},language=GoLang]
+/* Realizar la autenticacion con el repositorio de Docker */
+clientRegistry := registryClient.New(dockerurl, username, password)
+...
+/* Obtener el manifiesto de la imagenes */
+manifest, errManifest := clientRegistry.Manifest(newImage.Name, newImage.Version)
+...
+/* Obtener los componentes de software y vulnerabilidads utilizando Clair */
+newImage.Features, dockerImage, err = klar.DockerAnalyze(imageFullName)
+...
+/* Formatear el historial de los pasos que crearon la imagen */
+newImage.FsLayers = dockerImage.FsLayers
+newImage.History = parseManifestV1Compatibility(newImage.ManifestV1)
+installedLines, err := findLayerInstaller(newImage.History)
+...
+
+/* Anotar la informacion de la nueva imagen usando RDF */
+AnnotateFuseki(newImage)
+\end{lstlisting}
+\end{figure*}
+
+
+En la figura \ref{lst:annotador} se muestra una selección de código del sistema anotador. Primero se realiza la autenticación con el repositorio de Docker, en la línea 5 se obtiene el manifiesto de la imagen, en la línea 8 se obtienen los componentes de software y más meta datos de la imagen, en las línea 11-13 se muestra como obtener los pasos de construcción y finalmente se realiza la anotación a RDF utilizando Fuseki.
 
 En la figura  \ref{fig:packages-pegasus} se muestra triples de algunos de los paquetes instalado en la imagen de un workflow construido con Pegasus, en la figura \ref{fig:vulnerability-pegasus} se muestra sus vulnerabilidades.
-\begin{figure}[t]
-    \hspace*{-4cm}   
-    \includegraphics[width=1.3\textwidth]{Figures/packages}
+\begin{figure}[hb]
+    \includegraphics[width=\textwidth]{Figures/packages}
      \caption[Paquetes de la imagen Pegasus]{Ejemplo de triples que muestran los componentes de software de la imagen Pegasus}
     \label{fig:packages-pegasus}
-      
 \end{figure}
 
-\begin{figure}[t]
+\begin{figure}[hb]
     \hspace*{-4cm}   
     \includegraphics[width=1.3\textwidth]{Figures/packages-vuln}
       \caption[Paquetes y vulnerabilidades de la imagen Pegasus]{Vulnerabilidades y paquetes vulnerables de la imagen Pegasus}
@@ -186,6 +206,6 @@ Y se presenta el sistema de anotación para obtener esas descripciones donde sus
 	\item El sistema puede extenderse a nuevos sistemas de paquetes como Conda.
 \end{enumerate}
 
-Considerando, el sistema anotador, los repositorios de imágenes de Docker y que las imágenes Docker son livianas. Se logra enfrentar ambos tipos de conservación de ambientes computacionales de experimentos científicos. 
+Considerando que el sistema anotador puede detectar los componentes de software, que las imágenes Docker son livianas y almacenables en repositorio de Docker. Se logra enfrentar ambos tipos de conservación de ambientes computacionales de experimentos científicos. 
 
 En el siguiente capítulo se aplicará el enfoque a diversos experimentos reales y se mostrarán los aciertos y problemas encontrados.

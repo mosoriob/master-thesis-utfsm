@@ -87,11 +87,12 @@ Al estudiar la documentación de workflow SoyKB, se han obtenidos los siguientes
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=.8\textwidth]{Figures/soykb-deps}
+\includegraphics[width=.7\textwidth]{Figures/soykb-deps}
 \caption[Dependencias workflow SoyKb]{Dependencias de SoyKb. En amarillo: software propio y en verde software de terceros}\label{fig:soykb-deps} 
 \end{figure}
 
 La evaluación de los resultados se realizó de forma manual al igual que en \cite{santana2017reproducibility} debido a los pasos aleatorios del workflow. La metodología de la verificación fue la revisión de la estructura de los resultados, el tamaño de los archivos, número de líneas y la inexistencia de errores.
+La imagen se encuentran disponibles en DockerHub ~\cite{soykb-image} y los resultados se encuentran disponibles en ~\cite{soykb-results}
 
 \subsubsection{Montage}
 
@@ -99,7 +100,8 @@ Montage es un conjunto de herramientas creadas por \textit{NASA Infrared Process
 
 La figura \ref{fig:montage} entregada por Pegasus ilustra el workflow Montage. Cada uno de los nodos de la figura es un software binario que generan la imagen final.
 
-Debido a que el software es un binario, no se encuentra empaquetado. Por lo tanto fue descargado de la fuente. Las direcciones de descargas se encuentran en el archivo de DockerFile \footnote{\url{https://github.com/dockerpedia/montage/blob/master/Dockerfile}}.  
+Debido a que el software es un binario, no se encuentra empaquetado. Por lo tanto fue descargado de la fuente. Las direcciones de descargas se encuentran en el archivo de DockerFile~\cite{montage-image}
+
 
 \begin{figure}[t]
 \centering
@@ -109,7 +111,8 @@ Debido a que el software es un binario, no se encuentra empaquetado. Por lo tant
 
 Dado que los resultados de Montage son imágenes se utiliza la herramienta de hash perceptual \footnote{\url{http://phash.org}} para realizar la comparación entre la imagen reproducida (imagen del cielo de 0,1 grados) frente a la original.
 Como resultado, se obtiene un factor de similitud de 1,0 (de 1,0) con un umbral de 0,85.
-Las figuras \ref{fig:montage-wicus} y \ref{fig:montage-mosorio} muestran las imágenes resultantes y los archivos resultantes en formato FITS se encuentran en el repositorio de DockerPedia \footnote{\url{https://github.com/dockerpedia/montage_results}}. 
+Las figuras \ref{fig:montage-wicus} y \ref{fig:montage-mosorio} muestran las imágenes resultantes y los archivos resultantes en formato FITS se encuentran en el repositorio de DockerPedia ~\cite{montage-results}. 
+La imagen se encuentran disponibles en DockerHub ~\cite{montage-image}
 
 \begin{figure*}[t]
     \centering
@@ -129,7 +132,6 @@ Las figuras \ref{fig:montage-wicus} y \ref{fig:montage-mosorio} muestran las im�
         \caption[Comparación resultados Montage]{Los resultados obtenidos con el nuevo ambiente son iguales}
         \label{fig:montage-results}
 \end{figure*}
-
 
 
 \subsection{dispel4py}
@@ -156,6 +158,9 @@ El workflow primero lee el archivo de inicio que contiene la declinación y asce
 
 Nuestra investigación inicial sobre las dependencias para la ejecución de Internal extinction muestra que el software principal requeridos es el siguiente:  \verb|requests|, \verb|python=|, \verb|numpy| y \verb|astropy|
 
+La imagen se encuentran disponibles en DockerHub ~\cite{internal-image} y los resultados se encuentran disponibles en ~\cite{internal-results}
+
+
 \subsubsection{Seismic Ambient Noise Cross-Correlation}
 \textit{Seismic Ambient Noise Cross-Correlation workflow} (o xcorr workflow) es parte del proyecto \textit{Virtual Earthquake and seismology Research Community e-science environment in Europe} (VERCE). 
 El objetivo del workflow es la previsión de riesgos producidos por terremotos y erupciones volcánicas. Estos eventos en ciertos casos van precedidos o acompañados de cambios en las propiedades geofísicas de la Tierra, como la velocidad de las olas o la velocidad de los eventos. 
@@ -175,6 +180,7 @@ Luego la segunda etapa empareja todas las estaciones y calcula la correlación c
 
 Nuestra investigación inicial sobre las dependencias para la ejecución indica que los componentes de software necesarios son: \verb|python|, \verb|obspy| y \verb|numpy|
 
+\todo{link: resultado}
 
 \subsection{WINGS}
 
@@ -324,7 +330,7 @@ Para obtener las anotaciones, se propone e implementa usar Clair y construir un 
 
 Para reproducir el entorno, el sistema obtiene el repositorio asociado a la imagen y construye la nueva imagen. La URL del repositorio y el cambio asociado (representado por un VCS commit) se pueden obtener por dos métodos: consultando nuestras anotaciones o usando un comando Docker. El listado \ref{lst:inspect_command} muestra las etiquetas de la imagen de flujo de trabajo SoyKB.
 
-\begin{figure*}[H]
+\begin{figure*}[h]
 \begin{lstlisting}[caption={Inspeccionar las anotaciones de una imagen},label={lst:inspect_command},language=bash]
 root@docker-instance:~# docker inspect \ 
     --format='{{json .Config.Labels}}' \ 

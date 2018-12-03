@@ -2,12 +2,20 @@
 
 \section*{Resumen}
 
+La reproducibilidad experimental es la capacidad de volver a ejecutar un experimento con o sin la introducción de cambios en él y que la obtención de los resultados sean consistentes con los originales. 
+Para permitir la reproducibilidad, la comunidad científica ha animado a los investigadores a conservar las descripciones de estos experimentos. 
+Sin embargo, el trabajo en la descripción de la infraestructura no ha resuelto de forma completa.
 
-Desde el año 2000, la utilización de tecnologías de virtualización han aumentado rápidamente y a su vez el lanzamiento de nuevas
-alternativas. Docker ha sido una de estas alternativas: siendo usado por empresas como Google, Spotify, GILT, yelp, RackSpace, Ebay entre otras. 
-Por otra parte, es común que las aplicaciones necesiten escalables y ser altamente disponibles para poder satisfacer la demanda de los usuarios. Sin embargo, Docker Engine no tiene la funcionalidad de interactuar con un cluster de nodos, solamente puede comunicarse con un nodo, es por ello la necesidad de una solución para orquestar y comunicar los \textit{containers}. Kubernetes es un orquestador \textit{open source} de \textit{Docker containers } encabezado y utilizado en producción por Google. En este trabajo se realiza una evaluación a algunos aspectos de Kubernetes para ser alojado en nube. Esta evaluación se realizará a través de una implementación de Kubernetes en dos ambientes con el objetivo de verificar de manera empírica las ventajas y desventajas de este tipo de sistemas y proponer trabajos futuros. 
- %
+En este trabajo proponemos un sistema para describir automáticamente los entornos computacionales utilizados en los experimentos in-silico. 
+Para ello, proponemos utilizar la virtualización basada en contenedores para distribuir los experimentos de software a través de imágenes de software y un sistema de anotación que permita describir estas imágenes de software. 
+Las imágenes son una versión mínima de un sistema operativo (contenedor) que permite el despliegue de múltiples paquetes de software aislados dentro de él. 
+Proponemos el uso de Docker para la conservación del entorno científico y un framework para capturar el valioso conocimiento sobre los recursos de un experimento computacional que se ejecuta en un contenedor Docker.
+ Como resultado, nos enfrentamos al desafío lógico y físico de la conservación. 
+ \newpage
 \section*{Abstract}
 % 
-Experiment reproducibility is the ability to run an experiment with the introduction of changes to it and getting results that are consistent with the original ones. To allow reproducibility, the scientific community encourages researchers to publish descriptions of the these experiments. However, these recommendations do not include an automated way for creating such descriptions: normally scientists have to annotate their experiments in a semi automated way. In this paper we propose a system to automatically describe computational environments used in in-silico experiments. We propose to use Operating System (OS) virtualization (containerization) for distributing software experiments throughout software images and an annotation system that will allow to describe these software images. The images are a minimal version of an OS (container) that allow the deployment of multiple isolated software packages within it. 
+Experiment reproducibility is the ability to re-run an experiment with or without introducing changes to it and getting results that are consistent with the original ones. 
+To allow reproducibility, the scientific community encourages researchers to publish descriptions of the these experiments. 
+However, the recommendations for obtaining a description of the infrastructure has not resolved completely.
+In this paper we propose a system to automatically describe computational environments used in in-silico experiments. We propose to use container-based virtualization for distributing software experiments throughout software images and an annotation system that will allow to describe these software images. The images are a minimal version of an OS (container) that allow the deployment of multiple isolated software packages within it. 
 We propose the usage of Docker for the conservation of the scientific environment and a framework to capture the valuable knowledge about the resources of a computational experiment running on a Docker Container. As a result, we are facing the logical and physical conservation challenge. 
