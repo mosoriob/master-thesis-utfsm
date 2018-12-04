@@ -13,7 +13,7 @@ En otras palabras, se busca evaluar la propuesta considerando que los workflows 
 Por esta razón, se seleccionó un conjunto de experimentos computacionales representados por workflows. El conjunto incluye cinco workflows de distintos dominios de la ciencia que utilizan tres sistemas de manejo de workflows científicos (WMSs) distintos.
 Luego, se anota el ambiente de computacional de cada workflow y es reproducido utilizando diferentes proveedores de Cloud y un ambiente local.
 
-\section{Construcción de imágenes}\label{s5.1}
+\section{Construcción de imágenes}
 
 Para validar la propuesta y su aplicación en el contexto de workflows científicos, se ha seleccionado un subconjunto de workflows y sistemas de manejo de workflows científicos (WMS) 
 El subconjunto ha sido seleccionado bajo los criterios de: nivel de utilización de WMS, la diversidad de lenguajes utilizados en el conjunto, y disponibilidad de los materiales del workflow. 
@@ -159,10 +159,8 @@ El workflow primero lee el archivo de inicio que contiene la declinación y asce
 
 Nuestra investigación inicial sobre las dependencias para la ejecución de Internal extinction muestra que el software principal requeridos es el siguiente:  \verb|requests|, \verb|python=|, \verb|numpy| y \verb|astropy|
 
-
-\todo{comparar}
+Al utilizar un servicio en línea, los datos de ingreso del workflow pueden variar durante las ejecuciones, por lo tanto la metodología de la verificación fue la revisión de la estructura de los resultados, el tamaño de los archivos, número de líneas y la inexistencia de errores.
 La imagen se encuentran disponibles en DockerHub ~\cite{internal-image} y los resultados se encuentran disponibles en ~\cite{internal-results}
-
 
 \subsubsection{Seismic Ambient Noise Cross-Correlation}
 \textit{Seismic Ambient Noise Cross-Correlation workflow} (o xcorr workflow) es parte del proyecto \textit{Virtual Earthquake and seismology Research Community e-science environment in Europe} (VERCE). 
@@ -213,7 +211,10 @@ El USGS MODFLOW-NWT es una formulación de Newton-Raphson para MODFLOW-2005 con 
 \end{figure}
 
 
-La figura \ref{fig:modflow} muestra la estructura principal del workflow, desarrollado como un workflow compuesto por tres pasos. El proceso inicia leyendo el modelo a utilizar. Luego, el archivo de zona se usa para especificar arreglos que van usarse y finalmente se genera una visualización que muestra la cantidad de millones de galones por día en zona. Las figuras \ref{fig:modflow-original} y \ref{fig:modflow-reproduced} muestran los resultados generados por el ambiente original y reproducido respectivamente.
+La figura \ref{fig:modflow} muestra la estructura principal del workflow, desarrollado como un workflow compuesto por tres pasos. El proceso inicia leyendo el modelo a utilizar. Luego, el archivo de zona se usa para especificar arreglos que van usarse y finalmente se genera una visualización que muestra la cantidad de millones de galones por día en zona. Las figuras \ref{fig:modflow-original} y \ref{fig:modflow-reproduced} muestran los resultados generados por el ambiente original y reproducido respectivamente. Estos resultados son identicos.
+
+La imagen se encuentra disponible en DockerHub~\cite{wings-image} y los resultados en GitHub~\cite{wings-results}.
+
 
 \begin{figure*}[t]
     \centering
@@ -244,7 +245,8 @@ La figura \ref{fig:modflow} muestra la estructura principal del workflow, desarr
 %-----------------------------------------------
 \section{Conservación física}\label{s5.2}
 
-Todas las imágenes son publicadas con su correspondiente Dockerfile y cualquier usuario puede inspeccionarlas y mejorarlas. Las imágenes puede ser encontradas en DockerHub \footnote{https://hub.docker.com/u/dockerpedia/}\cite{xcorr-image,internal-image,soykb-image,montage-image,wings-image}  y GitHub \footnote{\url{https://github.com/dockerpedia}} \cite{xcorr-results,internal-results,soykb-results,montage-results,wings-results}. 
+Todas las imágenes son publicadas con su correspondiente Dockerfile y cualquier usuario puede inspeccionarlas y mejorarlas. 
+Las imágenes puede ser encontradas en DockerHub \footnote{https://hub.docker.com/u/dockerpedia/}\cite{xcorr-image,internal-image,soykb-image,montage-image,wings-image}  y GitHub \footnote{\url{https://github.com/dockerpedia}} \cite{xcorr-results,internal-results,soykb-results,montage-results,wings-results}. 
 
 Para evaluar la reproducibilidad del ambiente computacional se utiliza tres proveedores diferentes: DigitalOcean, Google Cloud y un local. La figura de \ref{image-env} presenta una descripción de las características de los ambientes    
 
@@ -314,7 +316,7 @@ Para evaluar la calidad de las anotaciones se utilizan dos experimentos.
 	\item Detectar las similitudes y diferencias entre dos ambientes computacionales.
 \end{itemize}
 
-Para obtener las anotaciones, se propone e implementa usar Clair y construir un sistema de anotador. La figura \ref{fig:arch} muestra los pasos principales del sistema.
+Para obtener las anotaciones, se propone e implementa el un sistema de anotador. La figura \ref{fig:arch} muestra los pasos principales del sistema.
 
 \begin{figure*}[t]
 \includegraphics[width=\textwidth]{Figures/arch.pdf}
@@ -343,17 +345,16 @@ root@docker-instance:~# docker inspect \
 La figura \ref{lst:inspect_result} muestra algunas de las etiquetas de la imagen basado en \textit{Open Container Initiative}. Y todas las imágenes disponibles en nuestros repositorios presentan esas etiquetas.
 
 \begin{figure*}
-\begin{lstlisting}[caption={Inspect image annotations},label={lst:inspect_result},language=json]
+\begin{lstlisting}[caption={Inspeccionar las anotaciones de la imagen.},label={lst:inspect_result},language=json]
 {
 "maintainer": "Maximiliano Osorio <mosorio@inf.utfsm.cl>",
-"org.label-schema.build-date": "2018-11-10T21:11:28Z",
-"org.label-schema.name": "Soybean Knowledge Base",
-"org.label-schema.schema-version": "1.0",
-"org.label-schema.url": "http://www.soykb.org/",
-"org.label-schema.vcs-ref": "15955b0",
-"org.label-schema.vcs-url": "https://github.com/dockerpedia/soykb",
-"org.label-schema.vendor": "DockerPedia",
-"org.label-schema.version": "1.0"
+"org.opencontainers.image.created": "2018-11-10T21:11:28Z",
+"org.opencontainers.image.title": "Soybean Knowledge Base",
+"org.opencontainers.image.url": "http://www.soykb.org/",
+"org.opencontainers.image.revision": "15955b0",
+"org.opencontainers.image.source": "https://github.com/dockerpedia/soykb",
+"org.opencontainers.image.vendor": "DockerPedia",
+"org.opencontainers.image.version": "1.0"
 }
 
 \end{lstlisting}
@@ -397,8 +398,7 @@ Por otra parte, los resultados experimentales muestran que nuestra propuesta pue
 Además, los resultados muestran que es posible extender Clair para anotar a otros gestores de paquetes. 
 
 Aún mas, las anotaciones generadas por nuestro enfoque permiten comparar los componentes de software entre dos o más entornos. Esta función se puede utilizar como herramienta de depuración cuando un entorno reproducido no funciona.
-Por ejemplo, en agosto de 2018, se construyó la imagen del workflow SoyKB, y se pudo ejecutar el workflow con éxito. Sin embargo, se reconstruyó una nueva imagen en noviembre con el mismo DeploymentPlan y no se pudo ejecutar el workflow con éxito.
-
+Por ejemplo, en agosto de 2018, se construyó la imagen del workflow SoyKB, y se pudo ejecutar el workflow con éxito. Sin embargo, en noviembre se reconstruyó una nueva imagen utilizando el mismo DeploymentPlan y no se pudo ejecutar el workflow con éxito.
 
 Se utilizaron las anotaciones de los componentes de software dentro de ambas imágenes. Y se encontró las siguientes diferencias:
 \begin{itemize}
@@ -406,7 +406,7 @@ Se utilizaron las anotaciones de los componentes de software dentro de ambas im�
     \item Noviembre: Pegasus 4.9 y Java 1.8
 \end{itemize}
 
-Luego se analizó el código y la documentación de SoyKB y las dependencias de Pegasus 4.9. Como resultado, sé obtuvo las gráficas de dependencia mostradas en la figura \ref{fig:pegasus49}.  Los gráficos de dependencia muestran que el paquete Pegasus 4.9 y SoyKB no son compatibles debido a sus requerimientos de versión Java.
+Luego se analizó el código y la documentación de SoyKB y las dependencias de Pegasus 4.9. Como resultado, se obtuvo las gráficas de dependencia mostradas en la figura \ref{fig:pegasus49}.  Los gráficos de dependencia muestran que el paquete Pegasus 4.9 y SoyKB no son compatibles debido a sus requerimientos de versión Java.
 
 Y construyó una nueva imagen instalando Pegasus 4.8, y se obtuvo los gráficos de dependencia que se muestran en la figura \ref{fig:pegasus48}. Aquí, el gráfico no tiene un conflicto y se pudo ejecutar el workflow con éxito.
 
@@ -451,4 +451,4 @@ En este capítulo se ha introducido cada uno de los WMSs y workflows correspondi
 Luego, se expone que es posible describir los componentes de software y pasos de los construcción y utilizar esas descripciones para reproducir el ambiente computacional requerido. 
 Asimismo, se muestran el framework completo propuesto y cómo las anotaciones y los modelos semánticos permiten la resolución un problema real producido por cambios los componentes de software en un ambiente computacional.
  
-En el siguiente capítulo se muestra 
+En el siguiente capítulo se muestra las conclusiones y trabajo futuro del trabajo.

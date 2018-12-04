@@ -35,7 +35,7 @@ Dado que la propuesta utiliza virtualización basada en contenedores se extendi�
 
 Por esta razón, en la ontología define el recurso \texttt{dockerpedia:SoftwarePackage} como una subclase de \texttt{wicus:SoftwareComponent} para definir los componentes instalados por el gestor de paquetes del sistema operativo u otro.
 Cada \texttt{wicus:SoftwareComponent} tiene una relación \texttt{dockerpedia:hasVersion} o \texttt{dockerpedia:isVersionOf} que muestra la versión del software instalado.
-El recurso \texttt{dockerpedia:PackageVersion} puede estar afectado por vulnerabilidades representadas por el recurso \texttt{dockerpedia:SoftwareVulnerability}. Y las versiones que reparan la vulnerabilidad se encuentran representadas por \texttt{dockerPedia:SecurityRevision}.
+El recurso \texttt{dockerpedia:PackageVersion} puede estar afectado por vulnerabilidades representadas por el recurso \texttt{dockerpedia:\linebreak SoftwareVulnerability}. Y las versiones que reparan la vulnerabilidad se encuentran representadas por \texttt{dockerPedia:SecurityRevision}.
 Una imagen Docker se representa por \texttt{dockerpedia:SoftwareImage} y sus capas por el recurso \texttt{dockerpedia:ImageLayer}. Los paquetes instalados en la imagen están relacionado por \texttt{vocab:ContainsSoftware} con su imagen.
 Finalmente, el sistema operativo es representado por el recurso \texttt{dockerpedia:OperatingSystem} y cada imagen y capa de la imagen está asociado al recurso.
 

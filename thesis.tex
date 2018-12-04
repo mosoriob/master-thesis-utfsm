@@ -17,7 +17,7 @@
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage{subcaption}
-
+\usepackage[htt]{hyphenat}
 \usepackage{listings}
 \usepackage{listings-golang}
 \usepackage[pdftex,dvipsnames]{xcolor}  % Coloured text etc.
@@ -124,8 +124,8 @@
 
 
 
-\setcounter{tocdepth}{1}
 
+\setcounter{tocdepth}{1}
 
 \begin{document}
 \frontmatter
@@ -143,6 +143,19 @@
 %\section*{Abstact} \chaptermark{Abstract}
 %\section*{Resumen}
 	\signaturepage
+
+% The "Funny Quote Page"
+\pagestyle{empty}  % No headers or footers for the following pages
+
+\null
+\vfill\vfill
+\begin{flushright}
+\textit{A Pamela por darme ese remanso}
+\end{flushright}
+
+\vfill\vfill\vfill
+\null
+\clearpage 
 
 \include{Abstract/abstract}
 \begin{spacing}{1}

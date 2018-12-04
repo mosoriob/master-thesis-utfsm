@@ -144,13 +144,6 @@ Docker Swarm \footnote{\url{https://docs.docker.com/swarm/}}.
 Docker puede separarse en dos grandes componentes Docker Engine y Client.
 Docker Engine es una herramienta liviana y portable para administrar la virtualización. Y Docker Client, provee una interfaz para interactuar con los contenedores con los usuarios a través de RESTful APIs\cite{bui2015analysis}.
 
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=0.3\textwidth]{Figures/docker.png}
-    \caption{Arquitectura de Docker}
-    \label{fig:docker}
-\end{figure}
-
 Docker utiliza una arquitectura de cliente-servidor, \emph{Docker Client} interactúa con \emph{Docker Daemon} y éste construye, maneja y corre los contenedores. Docker Client y Docker Daemon pueden correr en el mismo host o se puede conectar el cliente desde un host remoto. El cliente y el Daemon se comunican en forma de sockets o RESTful API \footnote{\url{https://docs.docker.com/introduction/understanding-docker/}}. 
 Una imagen de Docker (\textit{Docker Image}) es una plantilla de solo lectura. Por ejemplo, una imagen puede contener las herramientas básicas de Ubuntu con Apache y una aplicación web instalada o simplemente el sistema operativo. Las imágenes son usadas para construir los contenedores. Y cuando el usuario crea cambios en el contenedor, este cambio no se realiza en la imagen, sino  que Docker añade una capa adicional con los cambios de la imagen\cite{bui2015analysis}. Por ejemplo, si el usuario utiliza una imagen base de Debian, luego añade el paquete emacs y luego añade el paquete apache, el estado de capas estaría representado por la figura \ref{fig:arquitectura}. Esto permite tener un proceso de distribución de imágenes más eficiente dado que solo es necesario distribuir las actualizaciones \cite{bui2015analysis}. El sistema de archivos descrito anteriormente se denomina una sistema de archivo basado en capas.
 
